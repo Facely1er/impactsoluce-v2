@@ -1,0 +1,12 @@
+# robots.txt for ESGSoluce
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://esgsoluce.com/sitemap.xml
