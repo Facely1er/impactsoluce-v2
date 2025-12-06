@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database, FileAttachment } from './database.types';
-import { SUPABASE_URL, SUPABASE_ANON_KEY, FILE_UPLOAD } from './config';
+import { SUPABASE_URL, SUPABASE_ANON_KEY, FILE_UPLOAD, APP_ENV } from './config';
 import { API_RATE_LIMITER, UPLOAD_RATE_LIMITER, enforceRateLimit } from '../utils/rateLimiter';
 import { reportError } from '../utils/errorReporting';
 
@@ -8,7 +8,7 @@ import { reportError } from '../utils/errorReporting';
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   const errorMessage = 'Missing Supabase environment variables. Please check your .env file.';
   console.error(errorMessage);
-  
+
   // In production, throw an error to prevent app from running with invalid config
   if (APP_ENV === 'production') {
     throw new Error(errorMessage);
