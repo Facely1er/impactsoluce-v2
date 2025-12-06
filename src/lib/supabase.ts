@@ -4,23 +4,28 @@ import { SUPABASE_URL, SUPABASE_ANON_KEY, FILE_UPLOAD, APP_ENV } from './config'
 import { API_RATE_LIMITER, UPLOAD_RATE_LIMITER, enforceRateLimit } from '../utils/rateLimiter';
 import { reportError } from '../utils/errorReporting';
 
-// Validate Supabase configuration
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  const errorMessage = 'Missing Supabase environment variables. Please check your .env file.';
-  console.error(errorMessage);
+// Check if Supabase is properly configured
+const hasSupabaseConfig = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
 
-  // In production, throw an error to prevent app from running with invalid config
+if (!hasSupabaseConfig) {
+  console.warn('Supabase environment variables not found. Running in demo mode with mock data.');
   if (APP_ENV === 'production') {
-    throw new Error(errorMessage);
+    console.error('WARNING: Production environment running without Supabase configuration!');
   }
 }
 
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
+// Use fallback values if Supabase is not configured (for demo mode)
+const supabaseUrl = SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseKey = SUPABASE_ANON_KEY || 'placeholder-anon-key';
+
+export const supabase = createClient<Database>(supabaseUrl, supabaseKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
   },
 });
+
+export const isSupabaseConfigured = hasSupabaseConfig;
 
 // Server-side file validation
 const validateFile = (file: File): { isValid: boolean; error?: string } => {
@@ -75,9 +80,10 @@ export const uploadFileToStorage = async (file: File, path?: string): Promise<Fi
     // Check if we're in development, test, or demo mode
     const isDevMode = process.env.NODE_ENV === 'development';
     const isTestMode = process.env.NODE_ENV === 'test';
-    const isDemoMode = import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' || 
+    const isDemoMode = !isSupabaseConfigured ||
+                      import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
-    
+
     // For development, testing, or demo mode, we can bypass authentication
     let userId = 'demo-user-id';
     
@@ -169,9 +175,10 @@ export const saveAssessment = async (assessmentData: {
     // Check if we're in development, test, or demo mode
     const isDevMode = process.env.NODE_ENV === 'development';
     const isTestMode = process.env.NODE_ENV === 'test';
-    const isDemoMode = import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' || 
+    const isDemoMode = !isSupabaseConfigured ||
+                      import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
-    
+
     // For development, testing, or demo mode, we can bypass authentication
     let userId = 'demo-user-id';
     
@@ -292,9 +299,10 @@ export const getAssessment = async (assessmentId: string) => {
     // Check if we're in development, test, or demo mode
     const isDevMode = process.env.NODE_ENV === 'development';
     const isTestMode = process.env.NODE_ENV === 'test';
-    const isDemoMode = import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' || 
+    const isDemoMode = !isSupabaseConfigured ||
+                      import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
-    
+
     // For development, testing, or demo mode, we can return mock data
     if (isDevMode || isTestMode || isDemoMode) {
       return {
@@ -370,9 +378,10 @@ export const getAssessmentHistory = async () => {
     // Check if we're in development, test, or demo mode
     const isDevMode = process.env.NODE_ENV === 'development';
     const isTestMode = process.env.NODE_ENV === 'test';
-    const isDemoMode = import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' || 
+    const isDemoMode = !isSupabaseConfigured ||
+                      import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
-    
+
     // For development, testing, or demo mode, we can return mock data
     if (isDevMode || isTestMode || isDemoMode) {
       return [
@@ -453,9 +462,10 @@ export const checkAuthStatus = async () => {
     // Check if we're in development, test, or demo mode
     const isDevMode = process.env.NODE_ENV === 'development';
     const isTestMode = process.env.NODE_ENV === 'test';
-    const isDemoMode = import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' || 
+    const isDemoMode = !isSupabaseConfigured ||
+                      import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
-    
+
     // For development, testing, or demo mode, we can bypass authentication
     if (isDevMode || isTestMode || isDemoMode) {
       return { 
@@ -509,9 +519,10 @@ export const deleteFileFromStorage = async (filePath: string): Promise<void> => 
     // Check if we're in development, test, or demo mode
     const isDevMode = process.env.NODE_ENV === 'development';
     const isTestMode = process.env.NODE_ENV === 'test';
-    const isDemoMode = import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' || 
+    const isDemoMode = !isSupabaseConfigured ||
+                      import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
-    
+
     // For development, testing, or demo mode, we can bypass authentication
     if (isDevMode || isTestMode || isDemoMode) {
       console.log('Demo mode: Simulating file deletion for', filePath);
@@ -544,9 +555,10 @@ export const getFileMetadata = async (filePath: string) => {
     // Check if we're in development, test, or demo mode
     const isDevMode = process.env.NODE_ENV === 'development';
     const isTestMode = process.env.NODE_ENV === 'test';
-    const isDemoMode = import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' || 
+    const isDemoMode = !isSupabaseConfigured ||
+                      import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
-    
+
     // For development, testing, or demo mode, we can return mock data
     if (isDevMode || isTestMode || isDemoMode) {
       return {
