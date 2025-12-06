@@ -1,20 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
 import { Database, FileAttachment } from './database.types';
-import { SUPABASE_URL, SUPABASE_ANON_KEY, FILE_UPLOAD, APP_ENV } from './config';
+import { SUPABASE_URL, SUPABASE_ANON_KEY, FILE_UPLOAD, APP_ENV, HAS_DATABASE } from './config';
 import { API_RATE_LIMITER, UPLOAD_RATE_LIMITER, enforceRateLimit } from '../utils/rateLimiter';
 import { reportError } from '../utils/errorReporting';
+import { localStorageService } from '../utils/localStorage';
 
-// Check if Supabase is properly configured
-const hasSupabaseConfig = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
-
-if (!hasSupabaseConfig) {
-  console.warn('Supabase environment variables not found. Running in demo mode with mock data.');
-  if (APP_ENV === 'production') {
-    console.error('WARNING: Production environment running without Supabase configuration!');
-  }
+// Log application mode
+if (!HAS_DATABASE) {
+  console.info('✓ Running in standalone mode - all data stored locally');
+  console.info('  To enable backend persistence, configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env');
+} else {
+  console.info('✓ Database connected - using Supabase for data persistence');
 }
 
-// Use fallback values if Supabase is not configured (for demo mode)
+// Use fallback values if Supabase is not configured (for standalone mode)
 const supabaseUrl = SUPABASE_URL || 'https://placeholder.supabase.co';
 const supabaseKey = SUPABASE_ANON_KEY || 'placeholder-anon-key';
 
@@ -25,7 +24,8 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseKey, {
   },
 });
 
-export const isSupabaseConfigured = hasSupabaseConfig;
+// Export database availability flag
+export const isSupabaseConfigured = HAS_DATABASE;
 
 // Server-side file validation
 const validateFile = (file: File): { isValid: boolean; error?: string } => {
@@ -204,14 +204,30 @@ export const saveAssessment = async (assessmentData: {
       }
     };
 
-    // For development, testing, or demo mode, we can return a mock response
+    // For development, testing, or demo mode, use local storage
     if (isDevMode || isTestMode || isDemoMode) {
-      return {
-        id: assessmentData.assessmentId || 'demo-assessment-id',
+      const assessmentId = assessmentData.assessmentId || `assessment-${Date.now()}`;
+      const timestamp = new Date().toISOString();
+
+      const storedAssessment = {
+        id: assessmentId,
         ...assessmentPayload,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        created_at: timestamp,
+        updated_at: timestamp,
+        responses: Object.entries(assessmentData.responses).map(([questionId, response]) => ({
+          id: `response-${questionId}-${Date.now()}`,
+          assessment_id: assessmentId,
+          question_id: questionId,
+          value: response.value,
+          attachments: response.attachments || [],
+          created_at: timestamp,
+          updated_at: timestamp,
+        })),
       };
+
+      localStorageService.saveAssessment(storedAssessment);
+
+      return storedAssessment;
     }
 
     let assessment;
@@ -303,34 +319,30 @@ export const getAssessment = async (assessmentId: string) => {
                       import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
 
-    // For development, testing, or demo mode, we can return mock data
+    // For development, testing, or demo mode, use local storage
     if (isDevMode || isTestMode || isDemoMode) {
-      return {
-        assessment: {
-          id: assessmentId || 'demo-assessment-id',
-          user_id: 'demo-user-id',
-          status: 'submitted',
-          total_score: 75,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-          metadata: {
-            demoData: true,
-            sampleAssessment: true,
-            lastModified: new Date().toISOString(),
-            responseCount: 10
-          }
-        },
-        responses: Array.from({ length: 10 }, (_, i) => ({
-          id: `demo-response-${i}`,
-          assessment_id: assessmentId || 'demo-assessment-id',
-          question_id: `question_${i + 1}`,
-          value: {
-            answer: 'Sample response for demo purposes',
-            score: Math.floor(Math.random() * 100)
+      const stored = localStorageService.getAssessment(assessmentId);
+
+      if (stored) {
+        return {
+          assessment: {
+            id: stored.id,
+            user_id: stored.user_id,
+            status: stored.status,
+            total_score: stored.total_score,
+            submission_date: stored.submission_date,
+            created_at: stored.created_at,
+            updated_at: stored.updated_at,
+            metadata: stored.metadata,
           },
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }))
+          responses: stored.responses,
+        };
+      }
+
+      // Return empty assessment if not found
+      return {
+        assessment: null,
+        responses: [],
       };
     }
     
@@ -382,54 +394,21 @@ export const getAssessmentHistory = async () => {
                       import.meta.env.VITE_ENABLE_DEMO_MODE === 'true' ||
                       new URLSearchParams(window.location.search).get('demo') === 'true';
 
-    // For development, testing, or demo mode, we can return mock data
+    // For development, testing, or demo mode, use local storage
     if (isDevMode || isTestMode || isDemoMode) {
-      return [
-        {
-          id: 'demo-assessment-1',
-          user_id: 'demo-user-id',
-          status: 'submitted',
-          total_score: 75,
-          created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-          updated_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-          metadata: { 
-            scores: { 
-              environmental: 70, 
-              social: 75, 
-              governance: 80 
-            } 
-          },
-          assessment_responses: []
-        },
-        {
-          id: 'demo-assessment-2',
-          user_id: 'demo-user-id',
-          status: 'submitted',
-          total_score: 68,
-          created_at: new Date(Date.now() - 37 * 24 * 60 * 60 * 1000).toISOString(),
-          updated_at: new Date(Date.now() - 37 * 24 * 60 * 60 * 1000).toISOString(),
-          metadata: { 
-            scores: { 
-              environmental: 65, 
-              social: 70, 
-              governance: 72 
-            } 
-          },
-          assessment_responses: []
-        },
-        {
-          id: 'demo-assessment-3',
-          user_id: 'demo-user-id',
-          status: 'draft',
-          total_score: null,
-          created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-          updated_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-          metadata: { 
-            responseCount: 5
-          },
-          assessment_responses: []
-        }
-      ];
+      const assessments = localStorageService.getAllAssessments();
+
+      return assessments.map((a) => ({
+        id: a.id,
+        user_id: a.user_id,
+        status: a.status,
+        total_score: a.total_score,
+        submission_date: a.submission_date,
+        created_at: a.created_at,
+        updated_at: a.updated_at,
+        metadata: a.metadata,
+        assessment_responses: a.responses,
+      }));
     }
     
     // For production, get real data from Supabase
