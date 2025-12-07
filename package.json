@@ -19,7 +19,9 @@
     "test:e2e": "npm run build && npm run preview & sleep 5 && npm run test:lighthouse && kill %1",
     "test:lighthouse": "lhci autorun",
     "test:accessibility": "npm run build && npm run preview",
-    "bundle-analyzer": "npm run build:analyze"
+    "bundle-analyzer": "npm run build:analyze",
+    "deploy": "powershell -ExecutionPolicy Bypass -File ./deploy-vercel.ps1",
+    "setup:vercel": "powershell -ExecutionPolicy Bypass -File ./setup-vercel-project.ps1"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.7",
