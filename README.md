@@ -1,6 +1,8 @@
-# ImpactSoluce™ by ERMITS
+# ImpactSoluce™
 
-**ESG Risk Intelligence & Evidence Readiness Platform**
+**ESG Risk Intelligence**
+
+by ERMITS
 
 Transform environmental, social, and governance obligations into decision-grade intelligence. Know where your impact exposure is — before regulators, buyers, or financiers ask.
 

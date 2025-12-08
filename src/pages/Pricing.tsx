@@ -331,7 +331,7 @@ export default function Pricing() {
               {t('Start your free trial today and see how ImpactSoluce™ by ERMITS can transform your sustainability reporting and ESG compliance.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/assessment">
+              <Link to="/impact-scan">
                 <Button className="bg-white text-primary hover:bg-gray-100">
                   {t('Get Started')}
                 </Button>

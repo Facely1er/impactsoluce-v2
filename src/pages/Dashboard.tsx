@@ -430,7 +430,7 @@ export default function Dashboard() {
             <p className="text-gray-500 dark:text-gray-400 mb-6">
               {t('Complete your first ESG assessment to see your dashboard data.')}
             </p>
-            <Link to="/assessment">
+            <Link to="/impact-scan">
               <Button className="bg-primary">
                 {t('Start Your First Assessment')}
               </Button>

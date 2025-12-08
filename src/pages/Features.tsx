@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { 
-  BarChart3, 
   Shield, 
   Users, 
   FileText,
@@ -127,7 +126,7 @@ export default function Features() {
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
               {t('ImpactSoluce transforms ESG obligations into decision-grade intelligence. Know where your impact exposure is — before regulators, buyers, or financiers ask. Not reports. Not promises. Evidence-based exposure signals.')}
             </p>
-            <Link to="/assessment">
+            <Link to="/impact-scan">
               <Button className="bg-primary">
                 {t('Get Started')}
               </Button>
@@ -166,11 +165,37 @@ export default function Features() {
                         </div>
                       ))}
                     </div>
-                    <Link to={index === 0 ? "/assessment" : index === 1 ? "/dashboard" : index === 2 ? "/standards-mapping" : "/reports"}>
-                      <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />}>
-                        {t('Learn More')}
-                      </Button>
-                    </Link>
+                    {index === 0 ? (
+                      <Link to="/risk-radar">
+                        <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />}>
+                          {t('View Risk Radar')}
+                        </Button>
+                      </Link>
+                    ) : index === 1 ? (
+                      <div className="relative">
+                        <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />} disabled>
+                          {t('Coming in Phase 3')}
+                        </Button>
+                        <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-0.5 rounded-full">
+                          {t('Soon')}
+                        </span>
+                      </div>
+                    ) : index === 2 ? (
+                      <Link to="/impact-scan">
+                        <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />}>
+                          {t('Start Impact Scan')}
+                        </Button>
+                      </Link>
+                    ) : (
+                      <div className="relative">
+                        <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />} disabled>
+                          {t('Available as Add-ons')}
+                        </Button>
+                        <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-0.5 rounded-full">
+                          {t('Modules')}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className={isReverse ? 'lg:col-start-1' : ''}>
                     <img
@@ -293,7 +318,7 @@ export default function Features() {
               {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/assessment">
+              <Link to="/impact-scan">
                 <Button className="bg-white text-primary hover:bg-gray-100">
                   {t('Get Started')}
                 </Button>

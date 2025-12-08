@@ -172,7 +172,7 @@ export default function AssessmentResults() {
               {t('Assessment Results')} {isDemoMode && <span className="text-primary">(Demo)</span>}
             </h1>
             <p className="text-gray-600 dark:text-gray-300 mt-1">
-              {t('Analysis and recommendations based on your ESG assessment')}
+              {t('Baseline understanding of your current ESG posture for exposure analysis')}
             </p>
             {isDemoMode && (
               <div className="mt-2 flex items-center gap-2 text-blue-600 dark:text-blue-400">
@@ -350,12 +350,12 @@ export default function AssessmentResults() {
           ))}
         </div>
 
-        {/* Recommendations */}
+        {/* Observations */}
         <Card>
           <CardHeader>
-            <CardTitle>{t('Recommended Actions')}</CardTitle>
+            <CardTitle>{t('Key Observations')}</CardTitle>
             <CardDescription>
-              {t('Prioritized actions to improve your ESG performance')}
+              {t('Notable findings from your baseline assessment. Use this information to understand your exposure profile.')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -422,7 +422,7 @@ export default function AssessmentResults() {
               {t('View Standards Mapping')}
             </Button>
           </Link>
-          <Link to="/assessment">
+          <Link to="/impact-scan">
             <Button className="bg-primary w-full sm:w-auto">
               {t('Start New Assessment')}
             </Button>

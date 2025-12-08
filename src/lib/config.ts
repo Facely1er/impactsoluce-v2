@@ -13,7 +13,7 @@ export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
 // Application configuration
-export const APP_NAME = import.meta.env.VITE_APP_NAME || 'ImpactSoluce™ by ERMITS';
+export const APP_NAME = import.meta.env.VITE_APP_NAME || 'ImpactSoluce™ - ESG Risk Intelligence by ERMITS';
 export const APP_URL = import.meta.env.VITE_APP_URL || 'http://localhost:5173';
 export const APP_ENV = import.meta.env.VITE_APP_ENV || 'development';
 

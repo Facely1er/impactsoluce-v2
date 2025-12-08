@@ -35,7 +35,7 @@ const AssessmentOverview: React.FC<AssessmentOverviewProps> = ({ categories }) =
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">
           {t('Assessment Overview')}
         </h2>
-        <Link to="/assessment">
+        <Link to="/impact-scan">
           <Button variant="outline" size="sm">
             {t('View Details')}
           </Button>

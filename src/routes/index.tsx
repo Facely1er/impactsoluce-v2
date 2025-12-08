@@ -90,8 +90,8 @@ export default function AppRoutes() {
       <Route path="/risk-radar/configure" element={<ErrorBoundary><SuspenseWrapper><RiskRadarConfiguration /></SuspenseWrapper></ErrorBoundary>} />
       
       {/* Redirects */}
-      <Route path="/social-impact" element={<Navigate to="/assessment\" replace />} />
-      <Route path="/reporting\" element={<Navigate to="/reports\" replace />} />
+      <Route path="/social-impact" element={<Navigate to="/impact-scan" replace />} />
+      <Route path="/reporting" element={<Navigate to="/reports" replace />} />
       
       {/* 404 route */}
       <Route path="*" element={<NotFound />} />

@@ -126,10 +126,15 @@ export default function Header() {
                 alt="ImpactSoluce™ Logo" 
                 className="h-12 w-12 object-contain"
               />
-              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">
-                ImpactSoluce™  
-        <span className="block text-xs text-gray-600 dark:text-gray-400 font-normal">by ERMITS</span>
-              </span>
+              <div className="ml-2">
+                <div className="text-xl font-bold text-gray-900 dark:text-white">
+                  ImpactSoluce™
+                </div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 font-normal leading-tight">
+                  <span className="block">ESG Risk Intelligence</span>
+                  <span className="block">by ERMITS</span>
+                </div>
+              </div>
             </Link>
           </div>
 

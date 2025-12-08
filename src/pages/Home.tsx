@@ -13,21 +13,29 @@ export default function Home() {
       title: t('Impact Risk Radar™'),
       description: t('Instantly convert your sector, geography, and supply-chain footprint into a clear ESG exposure view. See environmental pressure signals, social risk alerts, governance credibility gaps, and regulatory pressure intensity by region.'),
       icon: <Radar className="h-8 w-8 text-primary" />,
+      available: true,
+      link: '/risk-radar',
     },
     {
       title: t('Evidence Readiness Workspace'),
       description: t('Centralized space to organize, assess, and evidence your sustainability posture. Get coverage indicators by ESG pillar, readiness snapshots with timestamps, and exportable views for regulators, buyers, and auditors.'),
       icon: <FolderOpen className="h-8 w-8 text-secondary" />,
+      available: false,
+      comingSoon: t('Coming in Phase 3'),
     },
     {
       title: t('Impact Scan'),
       description: t('Understand your current ESG posture through comprehensive assessment. Foundation for exposure analysis and evidence requirements.'),
       icon: <Shield className="h-8 w-8 text-success" />,
+      available: true,
+      link: '/impact-scan',
     },
     {
       title: t('Regulatory Intelligence Modules'),
       description: t('Modular intelligence for EUDR, Child Labor & Social Compliance, Supply-Chain Transparency, and Climate & Environmental Disclosure. Activate only what you need.'),
       icon: <Sparkles className="h-8 w-8 text-accent" />,
+      available: false,
+      comingSoon: t('Available as Add-ons'),
     },
   ];
 
@@ -48,6 +56,14 @@ export default function Home() {
           <div className="py-12 md:py-20 lg:py-24">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
               <div className="flex flex-col justify-center">
+                <div className="mb-4">
+                  <p className="text-sm font-semibold text-primary uppercase tracking-wide">
+                    {t('ESG Risk Intelligence')}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    {t('by ERMITS')}
+                  </p>
+                </div>
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl">
                   <span className="block">{t('Know where your impact')}</span>
                   <span className="block text-primary">{t('exposure is')}</span>
@@ -66,7 +82,7 @@ export default function Home() {
                       {t('See Your Exposure')}
                     </Button>
                   </Link>
-                  <Link to="/assessment?demo=true">
+                  <Link to="/impact-scan">
                     <Button
                       variant="outline"
                       size="lg"
@@ -133,7 +149,14 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, idx) => (
-              <Card key={idx} className="overflow-hidden border-0">
+              <Card key={idx} className={`overflow-hidden border-0 relative ${!feature.available ? 'opacity-90' : ''}`}>
+                {!feature.available && (
+                  <div className="absolute top-3 right-3 z-10">
+                    <span className="bg-primary text-white text-xs px-2 py-1 rounded-full font-medium">
+                      {feature.comingSoon}
+                    </span>
+                  </div>
+                )}
                 <CardContent className="p-6">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                     {feature.icon}
@@ -143,6 +166,52 @@ export default function Home() {
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300">
                     {feature.description}
+                  </p>
+                  {feature.available && feature.link && (
+                    <div className="mt-4">
+                      <Link to={feature.link}>
+                        <Button variant="outline" size="sm" className="w-full">
+                          {t('Learn More')}
+                          <ArrowRight className="ml-2 h-3 w-3" />
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Target Audience Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900/50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-4">
+              {t('Built for Real-World Pressure')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              {t('ImpactSoluce is used by organizations that need to prove readiness, not talk about ambition. If your credibility is reviewed externally, ImpactSoluce applies.')}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: t('Exporters & Manufacturers'), icon: '🏭', description: t('Prove compliance readiness for international markets and buyer requirements') },
+              { title: t('Agricultural Cooperatives'), icon: '🌾', description: t('Demonstrate traceability and sustainability credentials to buyers and regulators') },
+              { title: t('Sourcing & Procurement Teams'), icon: '📦', description: t('Assess supplier exposure and evidence readiness across supply chains') },
+              { title: t('Financial Institutions'), icon: '🏦', description: t('Evaluate portfolio ESG risk and regulatory exposure for lending decisions') },
+              { title: t('Advisory & Assurance Firms'), icon: '📋', description: t('Support clients with evidence-based exposure analysis and readiness assessment') },
+              { title: t('Compliance Officers'), icon: '🛡️', description: t('Identify regulatory pressure points and evidence gaps before audits') }
+            ].map((audience, idx) => (
+              <Card key={idx} className="border-0 shadow-md hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="text-4xl mb-4">{audience.icon}</div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    {audience.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm">
+                    {audience.description}
                   </p>
                 </CardContent>
               </Card>
@@ -157,10 +226,10 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                {t('Built for Real-World Pressure')}
+                {t('Why ImpactSoluce?')}
               </h2>
               <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-                {t('ImpactSoluce is used by organizations that need to prove readiness, not talk about ambition: exporters and manufacturers, agricultural cooperatives, sourcing and procurement teams, financial institutions, and advisory firms. If your credibility is reviewed externally, ImpactSoluce applies.')}
+                {t('Get decision-grade intelligence on your ESG exposure. Know what exists, what\'s missing, and where pressure will hit next.')}
               </p>
               <ul className="mt-8 space-y-4">
                 {benefits.map((benefit, idx) => (
@@ -215,21 +284,21 @@ export default function Home() {
                 {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
               </p>
               <div className="mt-8 flex justify-center gap-4">
-                <Link to="/assessment">
+                <Link to="/risk-radar">
                   <Button
                     size="lg"
                     className="bg-white text-primary hover:bg-gray-100"
                   >
-                    {t('Get Started')}
+                    {t('See Your Exposure')}
                   </Button>
                 </Link>
-                <Link to="/assessment?demo=true">
+                <Link to="/impact-scan">
                   <Button
                     variant="outline"
                     size="lg"
                     className="border-white text-white hover:bg-primary-800"
                   >
-                    {t('Try Demo')}
+                    {t('Start Impact Scan')}
                   </Button>
                 </Link>
               </div>
