@@ -15,7 +15,8 @@ import {
   Eye,
   Cookie,
   Map,
-  BarChart3
+  BarChart3,
+  Radar
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import HealthIndicator from '../ui/HealthIndicator';
@@ -29,7 +30,8 @@ export default function Footer() {
     {
       title: t('Product'),
       links: [
-        { name: t('Impact Scan'), href: '/assessment', icon: Zap },
+        { name: t('Risk Radar'), href: '/risk-radar', icon: Radar },
+        { name: t('Impact Scan'), href: '/impact-scan', icon: Zap },
         { name: t('ESG Dashboard'), href: '/dashboard', icon: BarChart3 },
         { name: t('Carbon Management'), href: '/carbon-management', icon: Leaf },
         { name: t('Standards Mapping'), href: '/standards-mapping', icon: Map },
@@ -59,9 +61,9 @@ export default function Footer() {
       title: t('Legal'),
       links: [
         { name: t('Privacy Policy'), href: '/privacy', icon: Eye },
-        { name: t('Terms of Service'), href: '/terms', icon: FileCheck },
         { name: t('Cookie Policy'), href: '/cookie-policy', icon: Cookie },
-        { name: t('Security'), href: '/security', icon: Shield },
+        { name: t('Terms of Service'), href: '/terms', icon: FileCheck },
+        { name: t('Acceptable Use Policy'), href: '/acceptable-use-policy', icon: Shield },
       ],
     },
   ];
@@ -83,7 +85,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="mt-4 max-w-md text-sm text-gray-600 dark:text-gray-400">
-              {t('ImpactSoluce™ by ERMITS: Transforming organizations through sustainable technology management and integrated ESG solutions. Map to GRI, SASB, TCFD, CSRD, and more.')}
+              {t('ImpactSoluce transforms ESG obligations into decision-grade intelligence. Know where your impact exposure is — before regulators, buyers, or financiers ask.')}
             </p>
             <div className="mt-6 flex space-x-4">
               <a

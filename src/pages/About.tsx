@@ -78,7 +78,7 @@ export default function About() {
               {t('About ImpactSoluce™ by ERMITS')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              {t('ImpactSoluce™ is ERMITS\' comprehensive ESG + Impact platform, designed to help organizations measure, manage, and improve their sustainability performance. We map to global frameworks including GRI, SASB, TCFD, ISSB, CSRD, and ISO standards, providing actionable insights and compliance-ready reporting.')}
+              {t('ImpactSoluce™ transforms environmental, social, and governance obligations into decision-grade intelligence. Know where your impact exposure is — before regulators, buyers, or financiers ask. Not reports. Not promises. Evidence-based exposure signals.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-primary">
@@ -128,7 +128,7 @@ export default function About() {
                 {t('Our Mission')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300">
-                {t('ERMITS is committed to accelerating the global transition to sustainable business practices. ImpactSoluce™ provides organizations with the technology, frameworks, and insights they need to excel in ESG performance, achieve regulatory compliance, and drive meaningful impact.')}
+                {t('ImpactSoluce is used by organizations that need to prove readiness, not talk about ambition: exporters and manufacturers, agricultural cooperatives, sourcing and procurement teams, financial institutions, and advisory firms. If your credibility is reviewed externally, ImpactSoluce applies.')}
               </p>
             </div>
             
@@ -242,14 +242,14 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              {t('Ready to Transform Your ESG Journey?')}
+              {t('Ready to Know Your Exposure?')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-              {t('Join organizations already using ImpactSoluce™ by ERMITS to drive meaningful sustainability improvements and achieve ESG compliance.')}
+              {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-primary">
-                {t('Start Your Assessment')}
+                {t('See Your Exposure')}
               </Button>
               <Button variant="outline">
                 {t('Schedule a Demo')}

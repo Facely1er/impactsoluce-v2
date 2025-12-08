@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
@@ -12,59 +11,63 @@ import {
   ArrowRight,
   Network,
   Settings,
-  Lock
+  Lock,
+  Radar,
+  FolderOpen,
+  X
 } from 'lucide-react';
 import Button from '../components/ui/Button';
+import { Link } from 'react-router-dom';
 
 export default function Features() {
   const { t } = useTranslation();
 
   const mainFeatures = [
     {
-      title: t('Impact Scan (Assessment)'),
-      description: t('Comprehensive ESG assessment engine that evaluates your organization against global standards. Get detailed scorecards with E, S, G breakdowns and actionable roadmaps.'),
-      icon: BarChart3,
+      title: t('Impact Risk Radar™'),
+      description: t('Instantly convert your sector, geography, and supply-chain footprint into a clear ESG exposure view. See environmental pressure signals (climate, deforestation, traceability), social risk alerts (labor, sourcing practices), governance credibility gaps, and regulatory pressure intensity by region.'),
+      icon: Radar,
       benefits: [
-        t('Multi-framework alignment (GRI, SASB, TCFD, CSRD, ISSB)'),
-        t('Automated scoring algorithms'),
-        t('Evidence-based questions'),
-        t('Progress tracking and save/resume')
+        t('Sector and geography-based exposure analysis'),
+        t('Regulatory pressure mapping by region'),
+        t('Supply chain risk visualization'),
+        t('Real-time exposure signals')
       ],
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: t('ESG & Carbon Dashboard'),
-      description: t('Real-time dashboards tracking your ESG performance, carbon footprint, and sustainability metrics with interactive analytics and visualization.'),
-      icon: TrendingUp,
+      title: t('Evidence Readiness Workspace'),
+      description: t('Centralized space to organize, assess, and evidence your sustainability posture. Get coverage indicators by ESG pillar, readiness snapshots with timestamps, and exportable views for regulators, buyers, and auditors.'),
+      icon: FolderOpen,
       benefits: [
-        t('Real-time ESG metrics'),
-        t('Carbon footprint tracking'),
-        t('Interactive charts and graphs'),
-        t('Performance trends')
+        t('Centralized evidence inventory'),
+        t('Coverage indicators by ESG pillar'),
+        t('Readiness snapshots with timestamps'),
+        t('Exportable views for stakeholders')
       ],
       image: 'https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: t('Standards Mapping & Gap View'),
-      description: t('Map your activities to GRI, SASB, TCFD, ISSB, CSRD, ISO 14001/26000/50001 requirements. Identify gaps, track compliance progress, and link evidence.'),
-      icon: Network,
+      title: t('Impact Scan'),
+      description: t('Understand your current ESG posture through comprehensive assessment. Foundation for exposure analysis and evidence requirements.'),
+      icon: Shield,
       benefits: [
-        t('Multi-framework mapping'),
-        t('Gap analysis'),
-        t('Requirement tracking'),
-        t('Evidence linking')
+        t('Multi-framework alignment (GRI, SASB, TCFD, CSRD, ISSB)'),
+        t('Baseline understanding of current posture'),
+        t('Foundation for risk analysis'),
+        t('Progress tracking and save/resume')
       ],
       image: 'https://images.pexels.com/photos/2990647/pexels-photo-2990647.jpeg?auto=compress&cs=tinysrgb&w=800'
     },
     {
-      title: t('Impact Reports & Export'),
-      description: t('Generate comprehensive ESG reports and export in multiple formats (JSON, Markdown, PDF). Integration-ready for Supabase and APIs.'),
-      icon: FileText,
+      title: t('Regulatory Intelligence Modules'),
+      description: t('Modular intelligence for EU Deforestation Regulation (EUDR), Child Labor & Social Compliance, Supply-Chain Transparency, and Climate & Environmental Disclosure Pressure. Activate only what you need.'),
+      icon: Network,
       benefits: [
-        t('Multiple export formats'),
-        t('Customizable templates'),
-        t('API integration ready'),
-        t('Automated report generation')
+        t('EUDR compliance tracking'),
+        t('Child Labor & Social Compliance'),
+        t('Supply Chain Transparency'),
+        t('Climate Disclosure Pressure')
       ],
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800'
     }
@@ -119,14 +122,16 @@ export default function Features() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('Powerful Features for ESG Excellence')}
+              {t('ESG Risk Intelligence & Evidence Readiness')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              {t('ImpactSoluce™ by ERMITS: Everything you need to measure, manage, and improve your organization\'s ESG performance. Five core pillars: Impact Scan, ESG & Carbon Dashboard, Standards Mapping, Impact Reports, and Integration-ready architecture.')}
+              {t('ImpactSoluce transforms ESG obligations into decision-grade intelligence. Know where your impact exposure is — before regulators, buyers, or financiers ask. Not reports. Not promises. Evidence-based exposure signals.')}
             </p>
-            <Button className="bg-primary">
-              {t('Start Free Trial')}
-            </Button>
+            <Link to="/assessment">
+              <Button className="bg-primary">
+                {t('Get Started')}
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -161,9 +166,11 @@ export default function Features() {
                         </div>
                       ))}
                     </div>
-                    <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />}>
-                      {t('Learn More')}
-                    </Button>
+                    <Link to={index === 0 ? "/assessment" : index === 1 ? "/dashboard" : index === 2 ? "/standards-mapping" : "/reports"}>
+                      <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />}>
+                        {t('Learn More')}
+                      </Button>
+                    </Link>
                   </div>
                   <div className={isReverse ? 'lg:col-start-1' : ''}>
                     <img
@@ -184,10 +191,42 @@ export default function Features() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              {t('Complete ESG Solution')}
+              {t('What ImpactSoluce Is NOT')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+              {t('Let\'s be clear. ImpactSoluce is an intelligence layer, not an opinion engine.')}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto mb-8">
+              <div className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <X className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">{t('Does not generate ESG stories')}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <X className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">{t('Does not replace consultants')}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <X className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">{t('Does not certify or score moral performance')}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <X className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">{t('Does not recommend remediation actions')}</p>
+                </div>
+              </div>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 mt-12">
+              {t('Additional Capabilities')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              {t('Our platform includes everything you need for comprehensive ESG management and reporting.')}
+              {t('Supporting features for comprehensive risk intelligence and evidence management.')}
             </p>
           </div>
           
@@ -248,18 +287,22 @@ export default function Features() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-white mb-4">
-              {t('Ready to Transform Your ESG Performance?')}
+              {t('Ready to Know Your Exposure?')}
             </h2>
             <p className="text-xl text-primary-100 mb-8">
-              {t('Join organizations using ImpactSoluce™ by ERMITS to drive meaningful sustainability improvements.')}
+              {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white text-primary hover:bg-gray-100">
-                {t('Start Free Trial')}
-              </Button>
-              <Button variant="outline" className="border-white text-white hover:bg-primary-800">
-                {t('Schedule Demo')}
-              </Button>
+              <Link to="/assessment">
+                <Button className="bg-white text-primary hover:bg-gray-100">
+                  {t('Get Started')}
+                </Button>
+              </Link>
+              <Link to="/assessment?demo=true">
+                <Button variant="outline" className="border-white text-white hover:bg-primary-800">
+                  {t('Try Demo')}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

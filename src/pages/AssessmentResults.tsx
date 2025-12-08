@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/Card';
@@ -8,17 +7,45 @@ import {
   CheckCircle2,
   Download,
   FileText,
-  Share2,
   XCircle,
-  Info
+  Info,
+  BarChart3
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { frameworkMappings } from '../utils/data';
 import { useAssessmentDemo } from '../hooks/useAssessmentDemo';
+import { downloadJSON, downloadMarkdown, formatAssessmentForExport } from '../utils/export';
+import { Link } from 'react-router-dom';
+import styles from './AssessmentResults.module.css';
 
 export default function AssessmentResults() {
   const { t } = useTranslation();
   const { isDemoMode } = useAssessmentDemo();
+
+  const handleDownloadReport = (format: 'json' | 'markdown' = 'json') => {
+    const exportData = formatAssessmentForExport({
+      results: results,
+      generatedAt: new Date().toISOString(),
+      summary: {
+        overallScore: results.overall.score,
+        categories: results.categories.map(c => ({
+          name: c.name,
+          score: c.score,
+          status: c.status
+        })),
+        frameworkAlignment: results.frameworkAlignment,
+        recommendations: results.recommendations
+      }
+    });
+
+    const filename = `impactsoluce-assessment-results-${new Date().toISOString().split('T')[0]}`;
+    
+    if (format === 'json') {
+      downloadJSON(exportData, `${filename}.json`);
+    } else {
+      downloadMarkdown(exportData, `${filename}.md`);
+    }
+  };
 
   // Mock results data - in a real app, this would come from your backend
   const results = {
@@ -125,8 +152,19 @@ export default function AssessmentResults() {
     }
   };
 
+  // Generate dynamic CSS for progress bars
+  const progressBarStyles = `
+    ${results.categories.map((category, index) => `
+      .progress-category-${index} { --progress-width: ${category.score}%; }
+    `).join('')}
+    ${Object.entries(results.frameworkAlignment).map(([, score], index) => `
+      .progress-framework-${index} { --progress-width: ${score}%; }
+    `).join('')}
+  `;
+
   return (
     <Layout>
+      <style>{progressBarStyles}</style>
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
           <div>
@@ -144,18 +182,47 @@ export default function AssessmentResults() {
             )}
           </div>
           <div className="flex gap-2 mt-4 md:mt-0">
-            <Button
-              variant="outline"
-              icon={<Share2 size={18} />}
-            >
-              {t('Share Results')}
-            </Button>
-            <Button
-              className="bg-primary"
-              icon={<Download size={18} />}
-            >
-              {t('Download Report')}
-            </Button>
+            <div className="relative group">
+              <Button
+                className="bg-primary"
+                icon={<Download size={18} />}
+                onClick={() => handleDownloadReport('json')}
+              >
+                {t('Download Report')}
+              </Button>
+              <div className="absolute right-0 mt-1 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50">
+                <div className="py-1 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700">
+                  <button
+                    onClick={() => handleDownloadReport('json')}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    {t('Export as JSON')}
+                  </button>
+                  <button
+                    onClick={() => handleDownloadReport('markdown')}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    {t('Export as Markdown')}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <Link to="/dashboard">
+              <Button
+                variant="outline"
+                icon={<BarChart3 size={18} />}
+              >
+                {t('View Dashboard')}
+              </Button>
+            </Link>
+            <Link to="/assessment/history">
+              <Button
+                variant="outline"
+                icon={<FileText size={18} />}
+              >
+                {t('View History')}
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -185,16 +252,17 @@ export default function AssessmentResults() {
                   <div className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
                     {category.score}%
                   </div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700">
+                  <div 
+                    className={`${styles.progressContainer} progress-category-${index}`}
+                  >
                     <div
-                      className={`h-2 rounded-full ${
+                      className={`${styles.progressBar} ${
                         category.score >= 80
-                          ? 'bg-green-500'
+                          ? styles.progressBarGreen
                           : category.score >= 60
-                          ? 'bg-yellow-500'
-                          : 'bg-red-500'
+                          ? styles.progressBarYellow
+                          : styles.progressBarRed
                       }`}
-                      style={{ width: `${category.score}%` }}
                     />
                   </div>
                 </div>
@@ -213,7 +281,7 @@ export default function AssessmentResults() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {Object.entries(results.frameworkAlignment).map(([framework, score]) => (
+              {Object.entries(results.frameworkAlignment).map(([framework, score], index) => (
                 <div key={framework} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -223,10 +291,11 @@ export default function AssessmentResults() {
                       {score}%
                     </span>
                   </div>
-                  <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700">
+                  <div 
+                    className={`${styles.progressContainer} progress-framework-${index}`}
+                  >
                     <div
-                      className="h-2 bg-primary rounded-full"
-                      style={{ width: `${score}%` }}
+                      className={`${styles.progressBar} ${styles.progressBarPrimary}`}
                     />
                   </div>
                 </div>
@@ -340,6 +409,25 @@ export default function AssessmentResults() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Next Steps Navigation */}
+        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <Link to="/dashboard">
+            <Button variant="outline" className="w-full sm:w-auto">
+              {t('View Full Dashboard')}
+            </Button>
+          </Link>
+          <Link to="/standards-mapping">
+            <Button variant="outline" className="w-full sm:w-auto">
+              {t('View Standards Mapping')}
+            </Button>
+          </Link>
+          <Link to="/assessment">
+            <Button className="bg-primary w-full sm:w-auto">
+              {t('Start New Assessment')}
+            </Button>
+          </Link>
+        </div>
       </div>
     </Layout>
   );

@@ -1,15 +1,38 @@
 # ImpactSoluce™ by ERMITS
 
-A comprehensive ESG (Environmental, Social, and Governance) assessment platform that helps organizations measure and improve their sustainability performance.
+**ESG Risk Intelligence & Evidence Readiness Platform**
 
-## Features
+Transform environmental, social, and governance obligations into decision-grade intelligence. Know where your impact exposure is — before regulators, buyers, or financiers ask.
 
-- Comprehensive ESG assessments across multiple frameworks
-- Real-time scoring and analytics
-- Carbon footprint tracking
-- Standards mapping (GRI, SASB, TCFD, etc.)
+## Core Features
+
+- **Impact Risk Radar™**: Sector, geography, and supply-chain exposure analysis
+- **Evidence Readiness Workspace**: Centralized evidence inventory and readiness tracking
+- **Impact Scan**: Comprehensive ESG posture assessment (foundation layer)
+- **Regulatory Intelligence Modules**: EUDR, Child Labor, Supply Chain, Climate Disclosure
+
+## What ImpactSoluce Does
+
+- Converts your footprint into ESG exposure signals
+- Identifies regulatory pressure by region
+- Tracks evidence readiness for compliance
+- Shows what exists, what's missing, and where pressure will hit next
+
+## What ImpactSoluce Is NOT
+
+- ❌ Does not generate ESG stories
+- ❌ Does not replace consultants
+- ❌ Does not certify or score moral performance
+- ❌ Does not recommend remediation actions
+
+ImpactSoluce is an intelligence layer, not an opinion engine.
+
+## Additional Features
+
 - Multi-language support (English, French)
 - Responsive design for all devices
+- Standards mapping (GRI, SASB, TCFD, CSRD, ISSB, ISO)
+- Export capabilities for regulators, buyers, and auditors
 
 ## Getting Started
 

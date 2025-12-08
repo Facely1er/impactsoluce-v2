@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { CheckCircle2, X, Star, Users, Building, Globe } from 'lucide-react';
@@ -12,7 +13,7 @@ export default function Pricing() {
   const plans = [
     {
       name: t('Free / Trial'),
-      description: t('Perfect for small organizations beginning their ESG journey'),
+      description: t('Perfect for organizations beginning their exposure analysis journey'),
       icon: Users,
       price: 0,
       period: t('Limited assessments'),
@@ -35,21 +36,21 @@ export default function Pricing() {
     },
     {
       name: t('Pro'),
-      description: t('Comprehensive ESG management for SMBs'),
+      description: t('Comprehensive risk intelligence and evidence readiness for SMBs'),
       icon: Building,
       price: isAnnual ? 799 : 899,
       period: isAnnual ? t('per month, billed annually') : t('per month'),
       features: [
-        t('Advanced Impact Scan (X assessments)'),
+        t('Impact Risk Radar™'),
+        t('Evidence Readiness Workspace'),
+        t('Impact Scan (unlimited)'),
+        t('Basic regulatory intelligence'),
         t('Up to 500 employees'),
-        t('Y users included'),
-        t('Custom reporting & dashboards'),
+        t('Multiple users included'),
+        t('Export for regulators/auditors'),
         t('Priority support'),
-        t('Advanced carbon management'),
         t('Multiple framework support (GRI, SASB, TCFD, CSRD, ISSB)'),
-        t('Standards Mapping & Gap View'),
-        t('Technology dependency analysis'),
-        t('Data export (JSON, Markdown) & API access'),
+        t('API access'),
       ],
       limitations: [
         t('White-label solutions'),
@@ -59,23 +60,23 @@ export default function Pricing() {
     },
     {
       name: t('Enterprise'),
-      description: t('Complete ESG platform for large organizations'),
+      description: t('Complete risk intelligence platform for large organizations'),
       icon: Globe,
       price: null,
       period: t('Custom pricing'),
       features: [
+        t('All Pro features'),
+        t('All Regulatory Intelligence Modules (EUDR, Child Labor, Supply Chain, Climate)'),
+        t('Advanced supply chain analysis'),
         t('Unlimited Impact Scans'),
-        t('Unlimited employees'),
-        t('Unlimited users'),
+        t('Unlimited employees and users'),
         t('White-label solutions'),
         t('Dedicated account manager'),
-        t('Advanced AI analytics'),
-        t('All frameworks supported (GRI, SASB, TCFD, CSRD, ISSB, ISO)'),
         t('Custom integrations'),
         t('On-premise deployment option'),
         t('24/7 premium support'),
         t('Training & consulting'),
-        t('ERMITS ecosystem integration (CyberCaution, VendorSoluce, etc.)'),
+        t('ERMITS ecosystem integration'),
       ],
       limitations: [],
       popular: false,
@@ -110,7 +111,7 @@ export default function Pricing() {
               {t('Simple, Transparent Pricing')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              {t('Choose the plan that fits your organization\'s ESG needs. All plans include core ImpactSoluce™ features: Impact Scan, ESG Dashboard, Carbon Management, Standards Mapping, and Reports. Integration with ERMITS ecosystem available for Enterprise plans.')}
+              {t('Choose the plan that fits your organization\'s risk intelligence needs. All plans include core ImpactSoluce™ features: Impact Risk Radar™, Evidence Readiness Workspace, Impact Scan, and Regulatory Intelligence Modules.')}
             </p>
             
             {/* Billing Toggle */}
@@ -120,6 +121,8 @@ export default function Pricing() {
               </span>
               <button
                 onClick={() => setIsAnnual(!isAnnual)}
+                aria-label={isAnnual ? t('Switch to monthly billing') : t('Switch to annual billing')}
+                title={isAnnual ? t('Switch to monthly billing') : t('Switch to annual billing')}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                   isAnnual ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-700'
                 }`}
@@ -193,12 +196,14 @@ export default function Pricing() {
                       )}
                     </div>
                     
-                    <Button 
-                      className={`w-full mb-6 ${plan.popular ? 'bg-primary' : ''}`}
-                      variant={plan.popular ? 'primary' : 'outline'}
-                    >
-                      {plan.price ? t('Start Free Trial') : t('Contact Sales')}
-                    </Button>
+                    <Link to={plan.price ? "/assessment" : "/contact"}>
+                      <Button 
+                        className={`w-full mb-6 ${plan.popular ? 'bg-primary' : ''}`}
+                        variant={plan.popular ? 'primary' : 'outline'}
+                      >
+                        {plan.price ? t('Get Started') : t('Contact Sales')}
+                      </Button>
+                    </Link>
                     
                     <div className="space-y-3">
                       <h4 className="font-medium text-gray-900 dark:text-white">
@@ -326,12 +331,16 @@ export default function Pricing() {
               {t('Start your free trial today and see how ImpactSoluce™ by ERMITS can transform your sustainability reporting and ESG compliance.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white text-primary hover:bg-gray-100">
-                {t('Start Free Trial')}
-              </Button>
-              <Button variant="outline" className="border-white text-white hover:bg-primary-800">
-                {t('Contact Sales')}
-              </Button>
+              <Link to="/assessment">
+                <Button className="bg-white text-primary hover:bg-gray-100">
+                  {t('Get Started')}
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button variant="outline" className="border-white text-white hover:bg-primary-800">
+                  {t('Contact Sales')}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

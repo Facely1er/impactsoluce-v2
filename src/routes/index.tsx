@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoadingScreen from '../components/ui/LoadingScreen';
-import AuthGuard from '../components/auth/AuthGuard';
+import ErrorBoundary from '../components/error/ErrorBoundary';
 
 // Eagerly loaded components
 import NotFound from '../pages/NotFound';
@@ -32,11 +32,14 @@ const Careers = lazy(() => import('../pages/Careers'));
 const EsgGlossary = lazy(() => import('../pages/EsgGlossary'));
 const CookiePolicy = lazy(() => import('../pages/CookiePolicy'));
 const Security = lazy(() => import('../pages/Security'));
+const AcceptableUsePolicy = lazy(() => import('../pages/AcceptableUsePolicy'));
 const ForgotPassword = lazy(() => import('../pages/ForgotPassword'));
 const ResetPassword = lazy(() => import('../pages/ResetPassword'));
 const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
 const Reports = lazy(() => import('../pages/Reports'));
+const RiskRadar = lazy(() => import('../pages/RiskRadar'));
+const RiskRadarConfiguration = lazy(() => import('../pages/RiskRadarConfiguration'));
 
 // Wrap lazy-loaded components with Suspense
 const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -50,16 +53,8 @@ export default function AppRoutes() {
     <Routes>
       {/* Public routes */}
       <Route path="/" element={<SuspenseWrapper><Home /></SuspenseWrapper>} />
-      <Route path="/login" element={
-        <AuthGuard requireAuth={false} redirectTo="/dashboard">
-          <SuspenseWrapper><Login /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/signup" element={
-        <AuthGuard requireAuth={false} redirectTo="/dashboard">
-          <SuspenseWrapper><Signup /></SuspenseWrapper>
-        </AuthGuard>
-      } />
+      <Route path="/login" element={<SuspenseWrapper><Login /></SuspenseWrapper>} />
+      <Route path="/signup" element={<SuspenseWrapper><Signup /></SuspenseWrapper>} />
       <Route path="/forgot-password" element={<SuspenseWrapper><ForgotPassword /></SuspenseWrapper>} />
       <Route path="/reset-password" element={<SuspenseWrapper><ResetPassword /></SuspenseWrapper>} />
       <Route path="/about" element={<SuspenseWrapper><About /></SuspenseWrapper>} />
@@ -76,63 +71,23 @@ export default function AppRoutes() {
       <Route path="/security" element={<SuspenseWrapper><Security /></SuspenseWrapper>} />
       <Route path="/privacy" element={<SuspenseWrapper><Privacy /></SuspenseWrapper>} />
       <Route path="/terms" element={<SuspenseWrapper><Terms /></SuspenseWrapper>} />
+      <Route path="/acceptable-use-policy" element={<SuspenseWrapper><AcceptableUsePolicy /></SuspenseWrapper>} />
       
-      {/* Protected routes */}
-      <Route path="/dashboard" element={
-        <AuthGuard>
-          <SuspenseWrapper><Dashboard /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/tech-dependency" element={
-        <AuthGuard>
-          <SuspenseWrapper><TechDependencies /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/resources" element={
-        <AuthGuard>
-          <SuspenseWrapper><Resources /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/carbon-management" element={
-        <AuthGuard>
-          <SuspenseWrapper><CarbonManagement /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/assessment" element={
-        <AuthGuard>
-          <SuspenseWrapper><Assessment /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/assessment/results" element={
-        <AuthGuard>
-          <SuspenseWrapper><AssessmentResults /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/assessment/history" element={
-        <AuthGuard>
-          <SuspenseWrapper><AssessmentHistory /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/standards-mapping" element={
-        <AuthGuard>
-          <SuspenseWrapper><StandardsMapping /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/profile" element={
-        <AuthGuard>
-          <SuspenseWrapper><Profile /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/settings" element={
-        <AuthGuard>
-          <SuspenseWrapper><Settings /></SuspenseWrapper>
-        </AuthGuard>
-      } />
-      <Route path="/reports" element={
-        <AuthGuard>
-          <SuspenseWrapper><Reports /></SuspenseWrapper>
-        </AuthGuard>
-      } />
+      {/* All routes are now public - no authentication required */}
+      <Route path="/dashboard" element={<SuspenseWrapper><Dashboard /></SuspenseWrapper>} />
+      <Route path="/tech-dependency" element={<SuspenseWrapper><TechDependencies /></SuspenseWrapper>} />
+      <Route path="/resources" element={<SuspenseWrapper><Resources /></SuspenseWrapper>} />
+      <Route path="/carbon-management" element={<SuspenseWrapper><CarbonManagement /></SuspenseWrapper>} />
+      <Route path="/impact-scan" element={<SuspenseWrapper><Assessment /></SuspenseWrapper>} />
+      <Route path="/assessment" element={<Navigate to="/impact-scan" replace />} />
+      <Route path="/assessment/results" element={<SuspenseWrapper><AssessmentResults /></SuspenseWrapper>} />
+      <Route path="/assessment/history" element={<SuspenseWrapper><AssessmentHistory /></SuspenseWrapper>} />
+      <Route path="/standards-mapping" element={<SuspenseWrapper><StandardsMapping /></SuspenseWrapper>} />
+      <Route path="/profile" element={<SuspenseWrapper><Profile /></SuspenseWrapper>} />
+      <Route path="/settings" element={<SuspenseWrapper><Settings /></SuspenseWrapper>} />
+      <Route path="/reports" element={<SuspenseWrapper><Reports /></SuspenseWrapper>} />
+      <Route path="/risk-radar" element={<ErrorBoundary><SuspenseWrapper><RiskRadar /></SuspenseWrapper></ErrorBoundary>} />
+      <Route path="/risk-radar/configure" element={<ErrorBoundary><SuspenseWrapper><RiskRadarConfiguration /></SuspenseWrapper></ErrorBoundary>} />
       
       {/* Redirects */}
       <Route path="/social-impact" element={<Navigate to="/assessment\" replace />} />

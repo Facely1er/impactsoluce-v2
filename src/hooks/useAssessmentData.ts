@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { saveAssessment, getAssessment, getAssessmentHistory, checkAuthStatus } from '../lib/supabase';
+import { saveAssessment, getAssessment, getAssessmentHistory } from '../lib/supabase';
 import { AssessmentResponse } from '../types';
 import { useToast } from './useToast';
 import { useAssessmentDemo } from './useAssessmentDemo';
@@ -13,19 +13,10 @@ export const useAssessmentData = (assessmentId?: string) => {
   const isDevMode = process.env.NODE_ENV === 'development';
   const isTestMode = process.env.NODE_ENV === 'test';
 
-  // Check authentication status first
-  const {
-    data: authStatus,
-    isLoading: isAuthLoading
-  } = useQuery({
-    queryKey: ['authStatus'],
-    queryFn: checkAuthStatus,
-    retry: false,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
-
-  const isAuthenticated = authStatus?.isAuthenticated || false;
-  const shouldBypassAuth = isDemoMode || isDevMode || isTestMode;
+  // Authentication is not required - always bypass auth
+  const shouldBypassAuth = true; // Always allow access without authentication
+  const isAuthenticated = false; // Not using authentication
+  const isAuthLoading = false; // No auth check needed
 
   const {
     data: assessmentData,
@@ -51,7 +42,7 @@ export const useAssessmentData = (assessmentId?: string) => {
       }
       return assessmentId ? getAssessment(assessmentId) : null;
     },
-    enabled: (!!assessmentId || isDemoMode) && (isAuthenticated || shouldBypassAuth) && !isAuthLoading,
+    enabled: (!!assessmentId || isDemoMode) && shouldBypassAuth,
     retry: (failureCount, error) => {
       // Don't retry on authentication or permission errors
       if (error instanceof Error && 
@@ -103,7 +94,7 @@ export const useAssessmentData = (assessmentId?: string) => {
       }
       return getAssessmentHistory();
     },
-    enabled: (isAuthenticated || shouldBypassAuth) && !isAuthLoading,
+    enabled: shouldBypassAuth,
     retry: (failureCount, error) => {
       if (error instanceof Error && error.message.includes('authenticated')) {
         return false;
@@ -119,35 +110,56 @@ export const useAssessmentData = (assessmentId?: string) => {
   });
 
   const { 
-    mutate: saveAssessmentData, 
+    mutateAsync: saveAssessmentData, 
     isPending: isSaving,
     error: saveError
   } = useMutation({
-    mutationFn: (data: {
+    mutationFn: async (data: {
       responses: Record<string, AssessmentResponse>;
       totalScore?: number;
       status?: 'draft' | 'submitted';
       assessmentId?: string;
-    }) => {
+    }): Promise<{
+      id: string;
+      user_id: string;
+      status: 'draft' | 'submitted';
+      total_score?: number | null;
+      created_at: string;
+      updated_at: string;
+      metadata?: any;
+    }> => {
+      // Save to localStorage in demo/dev/test mode
       if (isDemoMode || isDevMode || isTestMode) {
-        // In demo mode, simulate saving without actually calling the API
-        return Promise.resolve({
-          id: 'demo-assessment-id',
+        const savedData = {
+          id: data.assessmentId || `demo-${Date.now()}`,
           user_id: 'demo-user',
           status: data.status || 'draft',
           total_score: data.totalScore,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
           metadata: data
-        });
+        };
+        localStorage.setItem(`assessment-${savedData.id}`, JSON.stringify(savedData));
+        return savedData;
       }
       
-      // Check authentication before saving
-      if (!isAuthenticated && !shouldBypassAuth) {
-        throw new Error('User must be authenticated to save assessments');
+      // Try to save to Supabase if available, but don't require auth
+      try {
+        return await saveAssessment(data);
+      } catch (error) {
+        // If Supabase save fails, fall back to localStorage
+        const savedData = {
+          id: data.assessmentId || `local-${Date.now()}`,
+          user_id: 'local-user',
+          status: data.status || 'draft',
+          total_score: data.totalScore,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          metadata: data
+        };
+        localStorage.setItem(`assessment-${savedData.id}`, JSON.stringify(savedData));
+        return savedData;
       }
-      
-      return saveAssessment(data);
     },
     onSuccess: (data) => {
       if (!isDemoMode && !isDevMode && !isTestMode) {
@@ -169,12 +181,12 @@ export const useAssessmentData = (assessmentId?: string) => {
     assessmentData,
     history,
     saveAssessmentData,
-    isLoading: isAuthLoading || isAssessmentLoading || isHistoryLoading,
+    isLoading: isAssessmentLoading || isHistoryLoading,
     isSaving,
     error: error || historyError || saveError,
     isError: isError || !!historyError || !!saveError,
     isDemoMode: shouldBypassAuth,
-    isAuthenticated,
-    authStatus
+    isAuthenticated: false, // Not using authentication
+    authStatus: { isAuthenticated: false, user: null }
   };
 };

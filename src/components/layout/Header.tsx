@@ -18,13 +18,14 @@ import {
   Building,
   HelpCircle,
   FileText,
-  Globe
+  Globe,
+  Radar
 } from 'lucide-react';
 import Button from '../ui/Button';
 import { cn } from '../../utils/cn';
 import LanguageSwitcher from '../translation/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../hooks/useAuth';
+// Authentication disabled - import removed
 
 export default function Header() {
   const { t } = useTranslation();
@@ -34,7 +35,9 @@ export default function Header() {
     (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
   );
   const location = useLocation();
-  const { isAuthenticated, signOut } = useAuth();
+  // Authentication is not required - always show full navigation
+  const isAuthenticated = false; // Not using authentication
+  const signOut = () => {}; // No-op since auth is disabled
 
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
@@ -62,7 +65,8 @@ export default function Header() {
   const mainNavigation = [
     { name: t('Home'), href: '/', icon: Home },
     { name: t('Features'), href: '/features', icon: Zap },
-    { name: t('ESG Assessment'), href: '/assessment', icon: ClipboardList },
+    { name: t('Risk Radar'), href: '/risk-radar', icon: Radar },
+    { name: t('Impact Scan'), href: '/impact-scan', icon: ClipboardList },
     { name: t('Dashboard'), href: '/dashboard', icon: BarChart3 },
     { name: t('Carbon'), href: '/carbon-management', icon: Leaf },
     { name: t('Reports'), href: '/reports', icon: FileText },
@@ -73,7 +77,7 @@ export default function Header() {
 
   // Assessment & Reporting section (for dropdown)
   const assessmentNavigation = [
-    { name: t('ESG Assessment'), href: '/assessment', icon: ClipboardList },
+    { name: t('Impact Scan'), href: '/impact-scan', icon: ClipboardList },
     { name: t('Standards Mapping'), href: '/standards-mapping', icon: Map },
     { name: t('Assessment History'), href: '/assessment/history', icon: FileText },
     { name: t('Reports'), href: '/reports', icon: FileText },

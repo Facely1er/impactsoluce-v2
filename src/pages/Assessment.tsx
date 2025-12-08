@@ -18,7 +18,7 @@ import AssessmentNavigation from '../components/assessment/AssessmentNavigation'
 import AssessmentProgress from '../components/assessment/AssessmentProgress';
 import { useAssessment } from '../components/assessment/AssessmentState';
 import { useAssessmentValidation } from '../hooks/useAssessmentValidation';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAssessmentSync } from '../hooks/useAssessmentSync';
 import { useErrorHandler } from '../hooks/useErrorHandler';
 import ErrorAlert from '../components/ui/ErrorAlert';
@@ -38,7 +38,6 @@ export default function Assessment() {
     isSaving, 
     isError, 
     isDemoMode, 
-    isAuthenticated, 
     isLoading: isDataLoading 
   } = useAssessmentData(state.assessmentId);
   const { getDemoData } = useAssessmentDemo();
@@ -46,35 +45,20 @@ export default function Assessment() {
 
   // Check authentication status on component mount (skip for demo mode)
   useEffect(() => {
-    const checkAuthentication = async () => {
-      if (isDemoMode) {
-        // In demo mode, only load demo data if there are no existing responses
-        // This preserves any user input that might have been saved to localStorage
-        if (Object.keys(state.responses).length === 0) {
-          const demoData = getDemoData();
-          dispatch({ type: 'SET_ASSESSMENT_ID', payload: demoData.assessmentId });
-          Object.entries(demoData.responses).forEach(([questionId, response]) => {
-            dispatch({
-              type: 'SET_RESPONSE',
-              payload: { questionId, response }
-            });
-          });
-          dispatch({ type: 'UPDATE_PROGRESS', payload: demoData.progress });
-        }
-        return;
-      }
-
-      // Wait for authentication status to be determined
-      if (isDataLoading) return;
-
-      if (!isAuthenticated) {
-        navigate('/login');
-        return;
-      }
-    };
-
-    checkAuthentication();
-  }, [navigate, isDemoMode, getDemoData, dispatch, isAuthenticated, isDataLoading, state.responses]);
+    // Load demo data if in demo mode or if no existing responses
+    // Authentication is not required - all users can access the assessment
+    if (isDemoMode || Object.keys(state.responses).length === 0) {
+      const demoData = getDemoData();
+      dispatch({ type: 'SET_ASSESSMENT_ID', payload: demoData.assessmentId });
+      Object.entries(demoData.responses).forEach(([questionId, response]) => {
+        dispatch({
+          type: 'SET_RESPONSE',
+          payload: { questionId, response }
+        });
+      });
+      dispatch({ type: 'UPDATE_PROGRESS', payload: demoData.progress });
+    }
+  }, [isDemoMode, getDemoData, dispatch, state.responses]);
 
   // Calculate section progress
   const sectionProgress = React.useMemo(() => {
@@ -182,7 +166,7 @@ export default function Assessment() {
     dispatch({ type: 'SET_SECTION', payload: index });
   };
 
-  // Show loading while checking authentication
+  // Show loading while loading data
   if (isDataLoading) {
     return (
       <Layout>
@@ -190,7 +174,7 @@ export default function Assessment() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-300">
-              {isDemoMode ? t('Loading demo...') : t('Checking authentication...')}
+              {t('Loading...')}
             </p>
           </div>
         </div>
@@ -204,10 +188,10 @@ export default function Assessment() {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              {t('ESG Assessment')} {isDemoMode && <span className="text-primary">(Demo)</span>}
+              {t('Impact Scan')} {isDemoMode && <span className="text-primary">(Demo)</span>}
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              {t('Impact Scan: Evaluate your organization\'s ESG performance against global standards (GRI, SASB, TCFD, CSRD, ISSB, ISO). This assessment takes approximately 45-60 minutes and produces a comprehensive scorecard with E, S, G breakdowns and an actionable roadmap.')}
+              {t('Understand your current ESG posture through comprehensive assessment. This foundation analysis helps identify your sector, geography, and operational profile for exposure analysis. Takes approximately 45-60 minutes.')}
             </p>
             {isDemoMode && (
               <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
@@ -261,10 +245,7 @@ export default function Assessment() {
                         {t('Progress Saving')}
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        {isDemoMode 
-                          ? t('Demo mode: Progress will not be saved permanently')
-                          : t('You can save your progress and return later to complete the assessment')
-                        }
+                        {t('Your progress is automatically saved to your browser. You can return later to complete the assessment.')}
                       </p>
                     </div>
                   </div>
@@ -296,10 +277,10 @@ export default function Assessment() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-              {t('ESG Assessment')} {isDemoMode && <span className="text-primary">(Demo)</span>}
+              {t('Impact Scan')} {isDemoMode && <span className="text-primary">(Demo)</span>}
             </h1>
             <p className="text-gray-600 dark:text-gray-300 mt-1">
-              {t('Impact Scan: Evaluate your organization\'s ESG performance against global standards')}
+              {t('Foundation assessment for exposure analysis and evidence requirements')}
             </p>
           </div>
           <div className="flex gap-2 mt-4 md:mt-0">

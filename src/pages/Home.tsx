@@ -1,8 +1,7 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import Button from '../components/ui/Button';
-import { ArrowRight, BarChart3, CheckCircle2, LineChart, Shield, Sparkles, FileText } from 'lucide-react';
+import { ArrowRight, BarChart3, CheckCircle2, LineChart, Shield, Sparkles, FileText, Radar, FolderOpen } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/Card';
 import { Link } from 'react-router-dom';
 
@@ -11,34 +10,34 @@ export default function Home() {
 
   const features = [
     {
+      title: t('Impact Risk Radar™'),
+      description: t('Instantly convert your sector, geography, and supply-chain footprint into a clear ESG exposure view. See environmental pressure signals, social risk alerts, governance credibility gaps, and regulatory pressure intensity by region.'),
+      icon: <Radar className="h-8 w-8 text-primary" />,
+    },
+    {
+      title: t('Evidence Readiness Workspace'),
+      description: t('Centralized space to organize, assess, and evidence your sustainability posture. Get coverage indicators by ESG pillar, readiness snapshots with timestamps, and exportable views for regulators, buyers, and auditors.'),
+      icon: <FolderOpen className="h-8 w-8 text-secondary" />,
+    },
+    {
       title: t('Impact Scan'),
-      description: t('Comprehensive ESG assessment engine that evaluates your organization against global standards. Get detailed scorecards and actionable roadmaps.'),
-      icon: <Shield className="h-8 w-8 text-primary" />,
+      description: t('Understand your current ESG posture through comprehensive assessment. Foundation for exposure analysis and evidence requirements.'),
+      icon: <Shield className="h-8 w-8 text-success" />,
     },
     {
-      title: t('ESG & Carbon Dashboard'),
-      description: t('Real-time dashboards tracking your ESG performance, carbon footprint, and sustainability metrics with interactive analytics and visualization.'),
-      icon: <BarChart3 className="h-8 w-8 text-secondary" />,
-    },
-    {
-      title: t('Standards Mapping & Gap View'),
-      description: t('Map your activities to GRI, SASB, TCFD, ISSB, CSRD, ISO 14001/26000/50001 requirements. Identify gaps and track compliance progress.'),
-      icon: <Sparkles className="h-8 w-8 text-success" />,
-    },
-    {
-      title: t('Impact Reports & Export'),
-      description: t('Generate comprehensive ESG reports and export in multiple formats (JSON, Markdown, PDF). Integration-ready for Supabase and APIs.'),
-      icon: <FileText className="h-8 w-8 text-accent" />,
+      title: t('Regulatory Intelligence Modules'),
+      description: t('Modular intelligence for EUDR, Child Labor & Social Compliance, Supply-Chain Transparency, and Climate & Environmental Disclosure. Activate only what you need.'),
+      icon: <Sparkles className="h-8 w-8 text-accent" />,
     },
   ];
 
   const benefits = [
-    t('Improve ESG performance and ratings'),
-    t('Ensure compliance with emerging regulations'),
-    t('Reduce environmental impact of technology operations'),
-    t('Identify sustainability risks in technology dependencies'),
-    t('Build stakeholder trust through transparent reporting'),
-    t('Develop actionable sustainability strategies'),
+    t('Know your exposure before regulators, buyers, or financiers ask'),
+    t('Identify regulatory pressure intensity by region and sector'),
+    t('Track evidence readiness for compliance requirements'),
+    t('See what exists, what\'s missing, and where pressure will hit next'),
+    t('Export evidence views for regulators, buyers, and auditors'),
+    t('Focus on facts and signals, not narratives or promises'),
   ];
 
   return (
@@ -50,21 +49,21 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
               <div className="flex flex-col justify-center">
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl">
-                  <span className="block">{t('Transform your')}</span>
-                  <span className="block text-primary">{t('ESG & Impact performance')}</span>
-                  <span className="block">{t('through ImpactSoluce™')}</span>
+                  <span className="block">{t('Know where your impact')}</span>
+                  <span className="block text-primary">{t('exposure is')}</span>
+                  <span className="block">{t('— before they ask')}</span>
                 </h1>
                 <p className="mt-6 text-lg text-gray-600 dark:text-gray-300">
-                  {t('ImpactSoluce™ by ERMITS: The comprehensive ESG + Impact platform mapping to GRI, SASB, TCFD, CSRD, ISSB, and more. Measure, manage, and report your sustainability performance with confidence.')}
+                  {t('ImpactSoluce transforms environmental, social, and governance obligations into decision-grade intelligence. Not reports. Not promises. Evidence-based exposure signals.')}
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                  <Link to="/dashboard">
+                  <Link to="/risk-radar">
                     <Button
                       size="lg"
                       className="w-full sm:w-auto bg-primary hover:bg-primary-600"
-                      aria-label={t('Get Started with ESG Platform')}
+                      aria-label={t('See Your Exposure')}
                     >
-                      {t('Get Started')}
+                      {t('See Your Exposure')}
                     </Button>
                   </Link>
                   <Link to="/assessment?demo=true">
@@ -72,9 +71,9 @@ export default function Home() {
                       variant="outline"
                       size="lg"
                       className="w-full sm:w-auto border-primary text-primary"
-                      aria-label={t('Try Demo Assessment')}
+                      aria-label={t('Check Your Readiness')}
                     >
-                      {t('Try Demo')}
+                      {t('Check Your Readiness')}
                     </Button>
                   </Link>
                 </div>
@@ -111,7 +110,7 @@ export default function Home() {
                       </span>
                     </div>
                     <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-                      <div className="h-2 rounded-full bg-secondary" style={{ width: '73%' }}></div>
+                      <div className="h-2 rounded-full bg-secondary w-[73%]"></div>
                     </div>
                   </div>
                 </div>
@@ -126,10 +125,10 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-              {t('ImpactSoluce™: Your Complete ESG & Impact Platform')}
+              {t('Sustainability & ESG Risk Intelligence')}
             </h2>
             <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              {t('Five core pillars: Impact Scan (assessment), ESG & Carbon Dashboard, Standards Mapping & Gap View, Impact Reports & Export, and Integration-ready architecture.')}
+              {t('ImpactSoluce transforms ESG obligations into decision-grade intelligence. Know where your impact exposure is — before regulators, buyers, or financiers ask.')}
             </p>
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -158,10 +157,10 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-                {t('Transform Your Organization\'s ESG Performance')}
+                {t('Built for Real-World Pressure')}
               </h2>
               <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-                {t('ImpactSoluce™ by ERMITS helps you meet stakeholder demands for sustainability while building resilient technology systems. Our platform is designed to drive measurable improvements in your environmental, social, and governance performance, with comprehensive mapping to global ESG frameworks.')}
+                {t('ImpactSoluce is used by organizations that need to prove readiness, not talk about ambition: exporters and manufacturers, agricultural cooperatives, sourcing and procurement teams, financial institutions, and advisory firms. If your credibility is reviewed externally, ImpactSoluce applies.')}
               </p>
               <ul className="mt-8 space-y-4">
                 {benefits.map((benefit, idx) => (
@@ -172,9 +171,9 @@ export default function Home() {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/assessment">
+                <Link to="/risk-radar">
                   <Button className="bg-primary hover:bg-primary-600 inline-flex items-center">
-                    {t('Start Your ESG Assessment')}
+                    {t('Start Risk Analysis')}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
@@ -191,10 +190,10 @@ export default function Home() {
                 <div className="absolute bottom-0 left-0 p-8">
                   <div className="max-w-md">
                     <p className="text-2xl font-medium text-white mb-2">
-                      {t('ImpactSoluce™ helped us improve our ESG rating by 30% in just 6 months.')}
+                      {t('ImpactSoluce™ showed us exactly where regulatory pressure would hit — before our buyers asked.')}
                     </p>
                     <p className="text-white/80">
-                      {t('— Sarah Johnson, Sustainability Director')}
+                      {t('— Procurement Director, Agricultural Cooperative')}
                     </p>
                   </div>
                 </div>
@@ -210,10 +209,10 @@ export default function Home() {
           <div className="rounded-2xl bg-primary px-6 py-16 sm:p-16">
             <div className="mx-auto max-w-xl text-center">
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                {t('Ready to transform your ESG strategy?')}
+                {t('Ready to know your exposure?')}
               </h2>
               <p className="mt-4 text-lg text-primary-100">
-                {t('Join hundreds of organizations already using ImpactSoluce™ by ERMITS to improve their ESG performance and build a more sustainable future.')}
+                {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
               </p>
               <div className="mt-8 flex justify-center gap-4">
                 <Link to="/assessment">

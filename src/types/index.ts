@@ -260,3 +260,130 @@ export interface ESGReport {
     priority: 'high' | 'medium' | 'low';
   }[];
 }
+
+// Risk Radar Types
+export interface RiskFactor {
+  id: string;
+  category: 'climate' | 'deforestation' | 'traceability' | 'labor' | 'sourcing' | 'governance';
+  name: string;
+  severity: 'high' | 'medium' | 'low';
+  description: string;
+  indicators: string[];
+  regulatoryTriggers: string[];
+}
+
+export interface RegulatoryExposure {
+  regulation: string; // 'EUDR', 'CSRD', 'UK Modern Slavery Act', etc.
+  region: string;
+  applicability: 'direct' | 'indirect' | 'upstream' | 'downstream';
+  pressureLevel: 'critical' | 'high' | 'medium' | 'low';
+  deadline?: string;
+  requirements: string[];
+  evidenceNeeded: string[];
+}
+
+export interface SectorProfile {
+  id: string;
+  name: string;
+  code: string; // NACE, NAICS, etc.
+  riskFactors: {
+    environmental: RiskFactor[];
+    social: RiskFactor[];
+    governance: RiskFactor[];
+  };
+  regulatoryExposure: RegulatoryExposure[];
+}
+
+export interface GeographyProfile {
+  id: string;
+  name: string;
+  code: string; // ISO 3166
+  region: string;
+  regulatoryIntensity: {
+    environmental: number; // 0-100
+    social: number;
+    governance: number;
+  };
+  activeRegulations: RegulatoryExposure[];
+  upcomingRegulations: RegulatoryExposure[];
+}
+
+export interface SupplierNode {
+  id: string;
+  name: string;
+  geography: string;
+  sector: string;
+  riskScore: number;
+  exposureSignals: ExposureSignal[];
+}
+
+export interface SupplyChainFootprint {
+  id: string;
+  organizationId: string;
+  tiers: {
+    tier: number; // 1 = direct suppliers, 2 = suppliers' suppliers, etc.
+    suppliers: SupplierNode[];
+  }[];
+  riskHotspots: {
+    geography: string;
+    sector: string;
+    riskLevel: 'high' | 'medium' | 'low';
+    factors: string[];
+  }[];
+}
+
+export interface ExposureSignal {
+  id: string;
+  type: 'environmental' | 'social' | 'governance' | 'regulatory';
+  category: string;
+  severity: 'critical' | 'high' | 'medium' | 'low';
+  description: string;
+  source: string;
+  timestamp: string;
+  relatedRegulation?: string;
+  evidenceRequired?: boolean;
+}
+
+export interface ExposureLevel {
+  level: 'critical' | 'high' | 'medium' | 'low';
+  score: number; // 0-100
+  signals: ExposureSignal[];
+  trends?: {
+    period: string;
+    score: number;
+  }[];
+}
+
+export interface RiskRadarOutput {
+  organizationId: string;
+  generatedAt: string;
+  overallExposure: {
+    environmental: ExposureLevel;
+    social: ExposureLevel;
+    governance: ExposureLevel;
+    regulatory: ExposureLevel;
+  };
+  exposureSignals: ExposureSignal[];
+  regulatoryPressure: {
+    region: string;
+    intensity: number;
+    regulations: RegulatoryExposure[];
+  }[];
+  riskHotspots: {
+    geography: string;
+    sector: string;
+    riskLevel: string;
+    factors: string[];
+  }[];
+  supplyChainExposure?: SupplyChainFootprint;
+}
+
+export interface RiskRadarConfig {
+  id?: string;
+  organizationId?: string;
+  sectorCode?: string;
+  geographies: string[];
+  supplyChainTiers?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
