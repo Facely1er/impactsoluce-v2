@@ -172,14 +172,11 @@ export default function Features() {
                         </Button>
                       </Link>
                     ) : index === 1 ? (
-                      <div className="relative">
-                        <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />} disabled>
-                          {t('Coming in Phase 3')}
+                      <Link to="/evidence-workspace">
+                        <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />}>
+                          {t('View Workspace')}
                         </Button>
-                        <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-0.5 rounded-full">
-                          {t('Soon')}
-                        </span>
-                      </div>
+                      </Link>
                     ) : index === 2 ? (
                       <Link to="/impact-scan">
                         <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />}>

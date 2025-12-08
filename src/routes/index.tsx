@@ -40,6 +40,7 @@ const Settings = lazy(() => import('../pages/Settings'));
 const Reports = lazy(() => import('../pages/Reports'));
 const RiskRadar = lazy(() => import('../pages/RiskRadar'));
 const RiskRadarConfiguration = lazy(() => import('../pages/RiskRadarConfiguration'));
+const EvidenceWorkspace = lazy(() => import('../pages/EvidenceWorkspace'));
 
 // Wrap lazy-loaded components with Suspense
 const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -88,6 +89,7 @@ export default function AppRoutes() {
       <Route path="/reports" element={<SuspenseWrapper><Reports /></SuspenseWrapper>} />
       <Route path="/risk-radar" element={<ErrorBoundary><SuspenseWrapper><RiskRadar /></SuspenseWrapper></ErrorBoundary>} />
       <Route path="/risk-radar/configure" element={<ErrorBoundary><SuspenseWrapper><RiskRadarConfiguration /></SuspenseWrapper></ErrorBoundary>} />
+      <Route path="/evidence-workspace" element={<ErrorBoundary><SuspenseWrapper><EvidenceWorkspace /></SuspenseWrapper></ErrorBoundary>} />
       
       {/* Redirects */}
       <Route path="/social-impact" element={<Navigate to="/impact-scan" replace />} />

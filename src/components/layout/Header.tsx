@@ -19,7 +19,8 @@ import {
   HelpCircle,
   FileText,
   Globe,
-  Radar
+  Radar,
+  FolderOpen
 } from 'lucide-react';
 import Button from '../ui/Button';
 import { cn } from '../../utils/cn';
@@ -66,6 +67,7 @@ export default function Header() {
     { name: t('Home'), href: '/', icon: Home },
     { name: t('Features'), href: '/features', icon: Zap },
     { name: t('Risk Radar'), href: '/risk-radar', icon: Radar },
+    { name: t('Evidence Workspace'), href: '/evidence-workspace', icon: FolderOpen },
     { name: t('Impact Scan'), href: '/impact-scan', icon: ClipboardList },
     { name: t('Dashboard'), href: '/dashboard', icon: BarChart3 },
     { name: t('Carbon'), href: '/carbon-management', icon: Leaf },

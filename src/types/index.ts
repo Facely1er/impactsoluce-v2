@@ -387,3 +387,104 @@ export interface RiskRadarConfig {
   createdAt?: string;
   updatedAt?: string;
 }
+
+// Evidence Workspace Types
+export interface EvidenceItem {
+  id: string;
+  title: string;
+  description?: string;
+  type: 'document' | 'certificate' | 'audit' | 'policy' | 'report' | 'data' | 'other';
+  category: 'environmental' | 'social' | 'governance';
+  status: 'complete' | 'partial' | 'missing' | 'expired';
+  uploadedAt: string;
+  expiresAt?: string;
+  file?: {
+    name: string;
+    type: string;
+    size: number;
+    url: string;
+  };
+  metadata: {
+    framework?: string[];
+    regulation?: string[];
+    tags?: string[];
+    version?: string;
+    author?: string;
+  };
+  linkedTo: {
+    riskSignal?: string;
+    regulation?: string;
+    assessment?: string;
+  }[];
+  readinessScore: number; // 0-100
+}
+
+export interface EvidenceInventory {
+  organizationId: string;
+  lastUpdated: string;
+  items: EvidenceItem[];
+  coverage: {
+    byPillar: {
+      environmental: CoverageMetrics;
+      social: CoverageMetrics;
+      governance: CoverageMetrics;
+    };
+    byRegulation: Record<string, CoverageMetrics>;
+    byFramework: Record<string, CoverageMetrics>;
+  };
+  gaps: EvidenceGap[];
+  readiness: ReadinessSnapshot;
+}
+
+export interface CoverageMetrics {
+  total: number;
+  complete: number;
+  partial: number;
+  missing: number;
+  expired: number;
+  coveragePercentage: number;
+}
+
+export interface EvidenceGap {
+  id: string;
+  category: string;
+  regulation?: string;
+  framework?: string;
+  requirement: string;
+  severity: 'critical' | 'high' | 'medium' | 'low';
+  description: string;
+  evidenceNeeded: string[];
+  deadline?: string;
+  linkedRiskSignal?: string;
+}
+
+export interface ReadinessSnapshot {
+  timestamp: string;
+  overall: number; // 0-100
+  byPillar: {
+    environmental: number;
+    social: number;
+    governance: number;
+  };
+  byRegulation: Record<string, number>;
+  trends: {
+    period: string;
+    score: number;
+  }[];
+  nextReviewDate: string;
+}
+
+export interface EvidenceRequirement {
+  id: string;
+  regulation: string;
+  requirement: string;
+  category: 'environmental' | 'social' | 'governance';
+  evidenceTypes: string[];
+  mandatory: boolean;
+  frequency?: 'one-time' | 'annual' | 'quarterly' | 'ongoing';
+  applicableTo: {
+    sectors: string[];
+    geographies: string[];
+    organizationSize?: string[];
+  };
+}

@@ -20,8 +20,8 @@ export default function Home() {
       title: t('Evidence Readiness Workspace'),
       description: t('Centralized space to organize, assess, and evidence your sustainability posture. Get coverage indicators by ESG pillar, readiness snapshots with timestamps, and exportable views for regulators, buyers, and auditors.'),
       icon: <FolderOpen className="h-8 w-8 text-secondary" />,
-      available: false,
-      comingSoon: t('Coming in Phase 3'),
+      available: true,
+      link: '/evidence-workspace',
     },
     {
       title: t('Impact Scan'),
