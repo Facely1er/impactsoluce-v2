@@ -184,14 +184,11 @@ export default function Features() {
                         </Button>
                       </Link>
                     ) : (
-                      <div className="relative">
-                        <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />} disabled>
-                          {t('Available as Add-ons')}
+                      <Link to="/modules">
+                        <Button variant="outline" icon={<ArrowRight className="h-4 w-4" />}>
+                          {t('View Modules')}
                         </Button>
-                        <span className="absolute -top-2 -right-2 bg-primary text-white text-xs px-2 py-0.5 rounded-full">
-                          {t('Modules')}
-                        </span>
-                      </div>
+                      </Link>
                     )}
                   </div>
                   <div className={isReverse ? 'lg:col-start-1' : ''}>

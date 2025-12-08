@@ -488,3 +488,99 @@ export interface EvidenceRequirement {
     organizationSize?: string[];
   };
 }
+
+// Regulatory Modules Types
+export interface RegulatoryModule {
+  id: string;
+  name: string;
+  description: string;
+  status: 'active' | 'inactive' | 'coming_soon';
+  regulations: string[];
+  features: {
+    exposureAnalysis: boolean;
+    evidenceRequirements: boolean;
+    complianceTracking: boolean;
+    reporting: boolean;
+  };
+  configuration: ModuleConfiguration;
+  route?: string;
+  icon?: string;
+}
+
+export interface ModuleConfiguration {
+  enabled: boolean;
+  applicableSectors: string[];
+  applicableGeographies: string[];
+  customSettings?: Record<string, any>;
+}
+
+// EUDR Module Types
+export interface EUDRCommodity {
+  id: string;
+  name: string;
+  code: string;
+  covered: boolean;
+  supplyChain: {
+    origin: GeographyProfile[];
+    volume: number;
+    riskLevel: 'high' | 'medium' | 'low';
+  };
+}
+
+export interface EUDRCompliance {
+  organizationId: string;
+  commodities: EUDRCommodity[];
+  dueDiligence: {
+    status: 'complete' | 'in_progress' | 'not_started';
+    evidence: EvidenceItem[];
+    gaps: EvidenceGap[];
+  };
+  geolocationData: {
+    commodity: string;
+    coordinates: { lat: number; lng: number }[];
+    date: string;
+  }[];
+  complianceScore: number;
+}
+
+// Child Labor & Social Compliance Module Types
+export interface LaborRiskAssessment {
+  id: string;
+  geography: string;
+  sector: string;
+  riskLevel: 'high' | 'medium' | 'low';
+  factors: string[];
+  lastAssessed: string;
+}
+
+export interface SupplierAudit {
+  id: string;
+  supplierId: string;
+  supplierName: string;
+  auditType: 'SMETA' | 'SA8000' | 'custom';
+  status: 'scheduled' | 'in_progress' | 'completed' | 'failed';
+  date: string;
+  findings: string[];
+  remediationRequired: boolean;
+}
+
+// Supply Chain Transparency Module Types
+export interface TransparencyRequirement {
+  id: string;
+  regulation: string;
+  requirement: string;
+  disclosureLevel: 'tier1' | 'tier2' | 'tier3' | 'all';
+  deadline?: string;
+  status: 'compliant' | 'partial' | 'non_compliant';
+}
+
+// Climate Disclosure Module Types
+export interface ClimateDisclosure {
+  id: string;
+  framework: 'CSRD' | 'TCFD' | 'SEC' | 'ISSB';
+  requirement: string;
+  category: 'governance' | 'strategy' | 'risk' | 'metrics';
+  status: 'complete' | 'in_progress' | 'not_started';
+  deadline?: string;
+  evidence?: EvidenceItem[];
+}

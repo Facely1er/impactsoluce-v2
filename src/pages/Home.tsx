@@ -34,8 +34,8 @@ export default function Home() {
       title: t('Regulatory Intelligence Modules'),
       description: t('Modular intelligence for EUDR, Child Labor & Social Compliance, Supply-Chain Transparency, and Climate & Environmental Disclosure. Activate only what you need.'),
       icon: <Sparkles className="h-8 w-8 text-accent" />,
-      available: false,
-      comingSoon: t('Available as Add-ons'),
+      available: true,
+      link: '/modules',
     },
   ];
 
