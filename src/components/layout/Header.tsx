@@ -128,15 +128,15 @@ export default function Header() {
               <img 
                 src="/impactsoluce.png" 
                 alt="ImpactSoluce™ Logo" 
-                className="h-12 w-12 object-contain"
+                className="h-16 w-16 object-contain"
               />
               <div className="ml-2">
-                <div className="text-xl font-bold text-gray-900 dark:text-white">
+                <div className="text-lg font-bold text-gray-900 dark:text-white">
                   ImpactSoluce™
                 </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 font-normal leading-tight">
-                  <span className="block">ESG Risk Intelligence</span>
-                  <span className="block">by ERMITS</span>
+                <div className="text-xs font-normal leading-tight">
+                  <span className="block text-gray-900 dark:text-white">ESG Risk Intelligence</span>
+                  <span className="block text-gray-600 dark:text-gray-400">by ERMITS</span>
                 </div>
               </div>
             </Link>

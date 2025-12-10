@@ -332,7 +332,7 @@ The platform successfully transforms from an ESG assessment tool to an **ESG Ris
 
 ---
 
-*Assessment Date: December 2025*
+*Assessment Date: December 2024*
 *Alignment Score: 92/100 - Excellent Alignment*
-*Last Updated: December 2025 - After completion of quick fixes*
+*Last Updated: December 2024 - After completion of quick fixes*
 
