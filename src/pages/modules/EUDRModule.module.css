@@ -1,0 +1,20 @@
+/* Compliance score progress bar */
+.complianceProgressBar {
+  height: 0.75rem;
+  border-radius: 9999px;
+  width: var(--compliance-score-width, 0%);
+  transition: all 0.3s ease;
+}
+
+.complianceProgressBarGreen {
+  background-color: rgb(34 197 94);
+}
+
+.complianceProgressBarYellow {
+  background-color: rgb(234 179 8);
+}
+
+.complianceProgressBarRed {
+  background-color: rgb(239 68 68);
+}
+

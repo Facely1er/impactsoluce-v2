@@ -70,15 +70,19 @@ npm run dev
 
 This runs the app in standalone mode with local storage for data persistence. No database setup required!
 
-#### With Database (Optional)
+#### With Database (Shared with AgroSoluce)
 
-To enable backend persistence with Supabase:
+ImpactSoluce uses the same shared Supabase database as AgroSoluce. To enable backend persistence:
 
 1. Configure your Supabase credentials in `.env`:
 ```env
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+# Shared database with AgroSoluce
+VITE_SUPABASE_URL=https://nuwfdvwqiynzhbbsqagw.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2NDQxMjQsImV4cCI6MjA3NzIyMDEyNH0.9X_HxnSYDFqzxvzEUMx1dGg4GPHyw13oQfxpCXprsX8
+VITE_SUPABASE_SCHEMA=impactsoluce
 ```
+
+**Note:** The application will use the shared database by default even without these environment variables. The schema defaults to `impactsoluce` to keep data separate from AgroSoluce's `agrosoluce` schema.
 
 2. Run the application:
 ```bash

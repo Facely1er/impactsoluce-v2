@@ -42,7 +42,6 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   className,
   label
 }) => {
-  const { t } = useTranslation();
   
   const sizeClasses = {
     sm: 'h-4 w-4',
@@ -73,7 +72,6 @@ export const LoadingCard: React.FC<LoadingCardProps> = ({
   description,
   className
 }) => {
-  const { t } = useTranslation();
 
   return (
     <div className={cn('bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm', className)}>

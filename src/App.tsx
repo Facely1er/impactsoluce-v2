@@ -13,6 +13,17 @@ import GlobalErrorHandler from './components/error/GlobalErrorHandler';
 import LoadingScreen from './components/ui/LoadingScreen';
 import OfflineIndicator from './components/ui/OfflineIndicator';
 import AdminPanel from './components/admin/AdminPanel';
+import { usePageTracking } from './hooks/useAnalytics';
+import { initMonitoring } from './lib/monitoring';
+
+// Initialize monitoring on app load
+initMonitoring();
+
+// Component to track page views
+function PageTracker() {
+  usePageTracking();
+  return null;
+}
 
 function App() {
   return (
@@ -23,6 +34,7 @@ function App() {
             <ToastProvider>
               <AccessibilityProvider>
                 <BrowserRouter>
+                  <PageTracker />
                   <GlobalErrorHandler>
                     <Suspense fallback={<LoadingScreen />}>
                       <AssessmentProvider>

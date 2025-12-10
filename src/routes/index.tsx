@@ -28,7 +28,6 @@ const Support = lazy(() => import('../pages/Support'));
 const Documentation = lazy(() => import('../pages/Documentation'));
 const Login = lazy(() => import('../pages/Login'));
 const Signup = lazy(() => import('../pages/Signup'));
-const Careers = lazy(() => import('../pages/Careers'));
 const EsgGlossary = lazy(() => import('../pages/EsgGlossary'));
 const CookiePolicy = lazy(() => import('../pages/CookiePolicy'));
 const Security = lazy(() => import('../pages/Security'));
@@ -68,7 +67,6 @@ export default function AppRoutes() {
       <Route path="/blog" element={<SuspenseWrapper><Blog /></SuspenseWrapper>} />
       <Route path="/support" element={<SuspenseWrapper><Support /></SuspenseWrapper>} />
       <Route path="/documentation" element={<SuspenseWrapper><Documentation /></SuspenseWrapper>} />
-      <Route path="/careers" element={<SuspenseWrapper><Careers /></SuspenseWrapper>} />
       <Route path="/esg-glossary" element={<SuspenseWrapper><EsgGlossary /></SuspenseWrapper>} />
       <Route path="/cookie-policy" element={<SuspenseWrapper><CookiePolicy /></SuspenseWrapper>} />
       <Route path="/security" element={<SuspenseWrapper><Security /></SuspenseWrapper>} />

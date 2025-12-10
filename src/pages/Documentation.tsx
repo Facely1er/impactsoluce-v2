@@ -34,7 +34,7 @@ export default function Documentation() {
     {
       id: 'quick-start',
       title: t('Quick Start Guide'),
-      description: t('Get up and running with ESGSoluce in minutes'),
+      description: t('Get up and running with ImpactSoluce in minutes'),
       category: 'getting-started',
       type: 'guide',
       readTime: '5 min',
@@ -76,7 +76,7 @@ export default function Documentation() {
     {
       id: 'api-docs',
       title: t('API Documentation'),
-      description: t('Integrate ESGSoluce with your existing systems'),
+      description: t('Integrate ImpactSoluce with your existing systems'),
       category: 'api',
       type: 'technical',
       readTime: '30 min',
@@ -158,7 +158,7 @@ export default function Documentation() {
               {t('Documentation')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              {t('Everything you need to know about using ESGSoluce effectively.')}
+              {t('Everything you need to know about using ImpactSoluce effectively.')}
             </p>
             
             {/* Search Bar */}

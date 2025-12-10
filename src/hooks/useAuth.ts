@@ -24,7 +24,7 @@ export const useAuth = () => {
       if (isDevMode || isTestMode || isDemoEnabled) {
         const demoUser = {
           id: 'demo-user-id',
-          email: 'demo@esgsoluce.com',
+          email: 'demo@impactsoluce.com',
           user_metadata: {
             first_name: 'Demo',
             last_name: 'User',
@@ -71,7 +71,7 @@ export const useAuth = () => {
         
         const demoUser = {
           id: 'demo-user-id',
-          email: 'demo@esgsoluce.com',
+          email: 'demo@impactsoluce.com',
           user_metadata: {
             first_name: 'Demo',
             last_name: 'User',
@@ -246,7 +246,7 @@ export const useAuth = () => {
       if (demoParam === 'true') {
         const demoUser = {
           id: 'demo-user-id',
-          email: 'demo@esgsoluce.com',
+          email: 'demo@impactsoluce.com',
           user_metadata: {
             first_name: 'Demo',
             last_name: 'User',
@@ -264,7 +264,9 @@ export const useAuth = () => {
     }
     
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // @ts-ignore - event parameter is required by Supabase but not used
+      async (_event, session) => {
         if (session) {
           setUser(session.user);
           setIsAuthenticated(true);

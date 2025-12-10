@@ -42,20 +42,20 @@ export default function Contact() {
     {
       icon: Mail,
       title: t('Email Us'),
-      content: 'hello@esgsoluce.com',
+      content: 'hello@impactsoluce.com',
       description: t('Send us an email and we\'ll respond within 24 hours'),
     },
     {
       icon: Phone,
       title: t('Call Us'),
-      content: '+1 (555) 123-4567',
+      content: '+1 (555) IMPACT-1',
       description: t('Speak with our team Monday to Friday, 9 AM to 6 PM EST'),
     },
     {
       icon: MapPin,
       title: t('Visit Us'),
-      content: t('123 Sustainability Street, Green City, GC 12345'),
-      description: t('Our headquarters in the heart of the sustainability district'),
+      content: t('ERMITS Headquarters'),
+      description: t('Contact us for on-site consultations and meetings'),
     },
     {
       icon: Clock,
@@ -82,7 +82,7 @@ export default function Contact() {
               {t('Get in Touch')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              {t('Have questions about ESGSoluce? We\'re here to help you on your sustainability journey.')}
+              {t('Have questions about ImpactSoluce? We\'re here to help you understand your ESG exposure and evidence readiness.')}
             </p>
           </div>
         </div>

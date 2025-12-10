@@ -22,7 +22,7 @@ export default function Login() {
   const [isDemoCredentialsUsed, setIsDemoCredentialsUsed] = useState(false);
 
   // Get demo credentials from environment variables
-  const demoEmail = import.meta.env.VITE_DEMO_EMAIL || 'demo@esgsoluce.com';
+  const demoEmail = import.meta.env.VITE_DEMO_EMAIL || 'demo@impactsoluce.com';
   const demoPassword = import.meta.env.VITE_DEMO_PASSWORD || 'Demo123!';
 
   // Get the redirect path from location state or default to dashboard

@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
+import { Card, CardContent } from '../components/ui/Card';
 import { 
-  HelpCircle, 
   MessageCircle, 
   Book, 
   Video,
   Search,
   ChevronDown,
   ChevronRight,
-  ExternalLink,
   Download,
   Mail,
-  Phone,
-  Clock
+  Phone
 } from 'lucide-react';
 import Button from '../components/ui/Button';
 
@@ -56,12 +53,12 @@ export default function Support() {
 
   const faqs = [
     {
-      question: t('How do I get started with ESGSoluce?'),
-      answer: t('Getting started is easy! Sign up for a free trial, complete the onboarding process, and begin your first ESG assessment. Our platform guides you through each step with helpful tooltips and documentation.')
+      question: t('How do I get started with ImpactSoluce?'),
+      answer: t('Getting started is easy! Configure your Risk Radar to see your exposure, or start an Impact Scan assessment. Our platform guides you through each step with clear instructions and documentation.')
     },
     {
       question: t('Which ESG frameworks does the platform support?'),
-      answer: t('ESGSoluce supports major frameworks including GRI Standards, SASB, TCFD, CDP, UN Global Compact, and emerging regulations like CSRD and SFDR. We continuously update our framework coverage.')
+      answer: t('ImpactSoluce supports major frameworks including GRI Standards, SASB, TCFD, CSRD, ISSB, and ISO standards. Our Impact Scan assessment aligns with these frameworks to help you understand your current posture.')
     },
     {
       question: t('Can I import data from other systems?'),
@@ -102,7 +99,7 @@ export default function Support() {
     },
     {
       title: t('Video Tutorial Series'),
-      description: t('Complete video course on using ESGSoluce'),
+      description: t('Complete video course on using ImpactSoluce'),
       type: 'Video',
       size: '2.5 hours'
     }
@@ -123,7 +120,7 @@ export default function Support() {
               {t('How Can We Help?')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              {t('Find answers, get support, and learn how to make the most of ESGSoluce.')}
+              {t('Find answers, get support, and learn how to make the most of ImpactSoluce.')}
             </p>
             
             {/* Search Bar */}
@@ -181,7 +178,7 @@ export default function Support() {
                 {t('Frequently Asked Questions')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300">
-                {t('Quick answers to common questions about ESGSoluce.')}
+                {t('Quick answers to common questions about ImpactSoluce.')}
               </p>
             </div>
             
@@ -277,7 +274,7 @@ export default function Support() {
                 {t('Still Need Help?')}
               </h2>
               <p className="text-xl text-primary-100">
-                {t('Our support team is here to help you succeed with ESGSoluce.')}
+                {t('Our support team is here to help you succeed with ImpactSoluce.')}
               </p>
             </div>
             
@@ -292,7 +289,7 @@ export default function Support() {
                   {t('Email Support')}
                 </h3>
                 <p className="text-primary-100 mb-4">
-                  support@esgsoluce.com
+                  support@impactsoluce.com
                 </p>
                 <p className="text-sm text-primary-200">
                   {t('Response within 24 hours')}
@@ -309,7 +306,7 @@ export default function Support() {
                   {t('Phone Support')}
                 </h3>
                 <p className="text-primary-100 mb-4">
-                  +1 (555) 123-4567
+                  +1 (555) IMPACT-1
                 </p>
                 <p className="text-sm text-primary-200">
                   {t('Mon-Fri, 9 AM - 6 PM EST')}

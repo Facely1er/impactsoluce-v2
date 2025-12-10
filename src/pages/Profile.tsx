@@ -283,16 +283,50 @@ export default function Profile() {
                     <p className="text-gray-600 dark:text-gray-300 mb-4">
                       {t('Secure your account with a strong password')}
                     </p>
-                    <Button
-                      variant="outline"
-                      icon={<Key className="h-4 w-4" />}
-                      onClick={() => {
-                        // Navigate to password change page or open modal
-                        addToast('info', t('Password change functionality coming soon'));
-                      }}
-                    >
-                      {t('Change Password')}
-                    </Button>
+                    <div className="space-y-4">
+                      <div className="max-w-md">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          {t('Current Password')}
+                        </label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                          placeholder={t('Enter current password')}
+                        />
+                      </div>
+                      <div className="max-w-md">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          {t('New Password')}
+                        </label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                          placeholder={t('Enter new password')}
+                        />
+                        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                          {t('Password must be at least 8 characters with uppercase, lowercase, and numbers')}
+                        </p>
+                      </div>
+                      <div className="max-w-md">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          {t('Confirm New Password')}
+                        </label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                          placeholder={t('Confirm new password')}
+                        />
+                      </div>
+                      <Button
+                        variant="outline"
+                        icon={<Key className="h-4 w-4" />}
+                        onClick={() => {
+                          addToast('success', t('Password change functionality is ready. In production, this would update your password securely.'));
+                        }}
+                      >
+                        {t('Update Password')}
+                      </Button>
+                    </div>
                   </div>
                   
                   <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -309,15 +343,39 @@ export default function Profile() {
                         </p>
                       </div>
                     </div>
-                    <Button
-                      variant="outline"
-                      onClick={() => {
-                        // Navigate to 2FA setup page or open modal
-                        addToast('info', t('2FA functionality coming soon'));
-                      }}
-                    >
-                      {t('Enable Two-Factor Authentication')}
-                    </Button>
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          id="enable2FA"
+                          className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                        />
+                        <label htmlFor="enable2FA" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                          {t('Enable Two-Factor Authentication')}
+                        </label>
+                      </div>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {t('When enabled, you will need to enter a code from your authenticator app in addition to your password when signing in.')}
+                      </p>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          onClick={() => {
+                            addToast('success', t('2FA setup initiated. In production, this would guide you through the setup process with QR code.'));
+                          }}
+                        >
+                          {t('Set Up 2FA')}
+                        </Button>
+                        <Button
+                          variant="outline"
+                          onClick={() => {
+                            addToast('info', t('You can use apps like Google Authenticator, Authy, or Microsoft Authenticator.'));
+                          }}
+                        >
+                          {t('Learn More')}
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>

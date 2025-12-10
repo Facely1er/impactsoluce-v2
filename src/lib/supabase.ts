@@ -1,26 +1,42 @@
 import { createClient } from '@supabase/supabase-js';
-import { Database, FileAttachment } from './database.types';
-import { SUPABASE_URL, SUPABASE_ANON_KEY, FILE_UPLOAD, APP_ENV, HAS_DATABASE } from './config';
-import { API_RATE_LIMITER, UPLOAD_RATE_LIMITER, enforceRateLimit } from '../utils/rateLimiter';
+import { Database, FileAttachment, Tables, Json } from './database.types';
+import { SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SCHEMA, FILE_UPLOAD, APP_ENV, HAS_DATABASE } from './config';
+import { UPLOAD_RATE_LIMITER, enforceRateLimit } from '../utils/rateLimiter';
 import { reportError } from '../utils/errorReporting';
-import { localStorageService } from '../utils/localStorage';
+import { localStorageService, StoredAssessment } from '../utils/localStorage';
 
 // Log application mode
 if (!HAS_DATABASE) {
   console.info('✓ Running in standalone mode - all data stored locally');
   console.info('  To enable backend persistence, configure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in .env');
+  console.info('  Using shared database with AgroSoluce: https://nuwfdvwqiynzhbbsqagw.supabase.co');
 } else {
-  console.info('✓ Database connected - using Supabase for data persistence');
+  console.info('✓ Database connected - using shared Supabase database for data persistence');
+  console.info(`  Schema: ${SUPABASE_SCHEMA}`);
+  console.info('  Shared with AgroSoluce: https://nuwfdvwqiynzhbbsqagw.supabase.co');
 }
 
 // Use fallback values if Supabase is not configured (for standalone mode)
-const supabaseUrl = SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseKey = SUPABASE_ANON_KEY || 'placeholder-anon-key';
+// Using shared database with AgroSoluce: https://nuwfdvwqiynzhbbsqagw.supabase.co
+const supabaseUrl = SUPABASE_URL || 'https://nuwfdvwqiynzhbbsqagw.supabase.co';
+const supabaseKey = SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2NDQxMjQsImV4cCI6MjA3NzIyMDEyNH0.9X_HxnSYDFqzxvzEUMx1dGg4GPHyw13oQfxpCXprsX8';
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
+    detectSessionInUrl: true,
+  },
+  db: {
+    schema: SUPABASE_SCHEMA,
+  },
+  global: {
+    fetch: (...args) => {
+      if (APP_ENV === 'development') {
+        console.log('Supabase fetch:', args[0]);
+      }
+      return fetch(...args);
+    },
   },
 });
 
@@ -165,8 +181,15 @@ export const uploadFileToStorage = async (file: File, path?: string): Promise<Fi
   }
 };
 
+interface AssessmentResponse {
+  value: unknown;
+  files?: File[];
+  attachments?: FileAttachment[];
+  evidence?: unknown;
+}
+
 export const saveAssessment = async (assessmentData: {
-  responses: Record<string, any>;
+  responses: Record<string, AssessmentResponse>;
   totalScore?: number;
   status?: 'draft' | 'submitted';
   assessmentId?: string;
@@ -196,7 +219,7 @@ export const saveAssessment = async (assessmentData: {
     const assessmentPayload = {
       user_id: userId,
       submission_date: assessmentData.status === 'submitted' ? new Date().toISOString() : null,
-      total_score: assessmentData.totalScore,
+      total_score: assessmentData.totalScore ?? null,
       status: assessmentData.status || 'draft',
       metadata: {
         lastModified: new Date().toISOString(),
@@ -209,12 +232,13 @@ export const saveAssessment = async (assessmentData: {
       const assessmentId = assessmentData.assessmentId || `assessment-${Date.now()}`;
       const timestamp = new Date().toISOString();
 
-      const storedAssessment = {
+      const storedAssessment: StoredAssessment = {
         id: assessmentId,
         ...assessmentPayload,
+        total_score: assessmentPayload.total_score ?? null,
         created_at: timestamp,
         updated_at: timestamp,
-        responses: Object.entries(assessmentData.responses).map(([questionId, response]) => ({
+        responses: Object.entries(assessmentData.responses).map(([questionId, response]: [string, AssessmentResponse]) => ({
           id: `response-${questionId}-${Date.now()}`,
           assessment_id: assessmentId,
           question_id: questionId,
@@ -230,7 +254,7 @@ export const saveAssessment = async (assessmentData: {
       return storedAssessment;
     }
 
-    let assessment;
+    let assessment: Tables<'assessments'>;
     if (assessmentData.assessmentId) {
       // Update existing assessment
       const { data, error } = await supabase
@@ -282,11 +306,11 @@ export const saveAssessment = async (assessmentData: {
         return {
           assessment_id: assessment.id,
           question_id: questionId,
-          value: response.value,
-          attachments: attachments,
+          value: response.value as Json,
+          attachments: JSON.parse(JSON.stringify(attachments)) as Json, // Convert FileAttachment[] to Json
           // Keep legacy columns for backward compatibility during migration
-          files: response.files?.map((f: File) => f.name) || [],
-          evidence: response.evidence || []
+          files: (response.files?.map((f: File) => f.name) || []) as Json,
+          evidence: (response.evidence || []) as Json
         };
       })
     );
@@ -450,7 +474,7 @@ export const checkAuthStatus = async () => {
       return { 
         user: {
           id: 'demo-user-id',
-          email: 'demo@esgsoluce.com',
+          email: 'demo@impactsoluce.com',
           user_metadata: {
             first_name: 'Demo',
             last_name: 'User',

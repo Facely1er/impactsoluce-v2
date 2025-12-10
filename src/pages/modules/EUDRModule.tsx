@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/layout/Layout';
@@ -11,7 +11,6 @@ import {
   AlertTriangle, 
   CheckCircle2,
   Clock,
-  TrendingUp,
   Download,
   Settings
 } from 'lucide-react';
@@ -19,18 +18,16 @@ import { EUDRCommodity, EUDRCompliance } from '../../types';
 import LoadingScreen from '../../components/ui/LoadingScreen';
 import ErrorAlert from '../../components/ui/ErrorAlert';
 import { useErrorHandler } from '../../hooks/useErrorHandler';
+import styles from './EUDRModule.module.css';
 
 export default function EUDRModule() {
   const { t } = useTranslation();
   const { error, handleError, clearError } = useErrorHandler();
   const [isLoading, setIsLoading] = useState(true);
   const [compliance, setCompliance] = useState<EUDRCompliance | null>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    loadEUDRData();
-  }, []);
-
-  const loadEUDRData = async () => {
+  const loadEUDRData = useCallback(async () => {
     try {
       setIsLoading(true);
       clearError();
@@ -48,11 +45,22 @@ export default function EUDRModule() {
       
       setCompliance(data);
     } catch (err) {
-      handleError(err as Error, 'Failed to load EUDR compliance data');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load EUDR compliance data';
+      handleError(new Error(`Failed to load EUDR compliance data: ${errorMessage}`));
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [clearError, handleError]);
+
+  useEffect(() => {
+    loadEUDRData();
+  }, [loadEUDRData]);
+
+  useEffect(() => {
+    if (progressBarRef.current && compliance) {
+      progressBarRef.current.style.setProperty('--compliance-score-width', `${compliance.complianceScore}%`);
+    }
+  }, [compliance]);
 
   const generateMockEUDRData = (): EUDRCompliance => {
     const commodities: EUDRCommodity[] = [
@@ -171,7 +179,7 @@ export default function EUDRModule() {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-12">
-          <ErrorAlert message={error} onClose={clearError} />
+          <ErrorAlert message={error.message} details={error.details} onClose={clearError} />
         </div>
       </Layout>
     );
@@ -222,11 +230,11 @@ export default function EUDRModule() {
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 max-w-md">
                   <div 
-                    className={`h-3 rounded-full transition-all ${
-                      compliance.complianceScore >= 80 ? 'bg-green-500' :
-                      compliance.complianceScore >= 60 ? 'bg-yellow-500' : 'bg-red-500'
+                    ref={progressBarRef}
+                    className={`${styles.complianceProgressBar} ${
+                      compliance.complianceScore >= 80 ? styles.complianceProgressBarGreen :
+                      compliance.complianceScore >= 60 ? styles.complianceProgressBarYellow : styles.complianceProgressBarRed
                     }`}
-                    style={{ width: `${compliance.complianceScore}%` }}
                   />
                 </div>
               </div>

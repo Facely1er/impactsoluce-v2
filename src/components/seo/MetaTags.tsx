@@ -26,13 +26,13 @@ const MetaTags: React.FC<MetaTagsProps> = ({
   publishedTime,
   modifiedTime,
   author,
-  twitterHandle = '@esgsoluce',
+  twitterHandle = '@impactsoluce',
 }) => {
   const { t, i18n } = useTranslation();
   
   // Default meta values
   const defaultTitle = APP_NAME;
-  const defaultDescription = t('Transforming organizations through sustainable technology management and integrated ESG solutions for a more responsible future.');
+  const defaultDescription = t('ESG Risk Intelligence by ERMITS. Know where your impact exposure is — before regulators, buyers, or financiers ask.');
   const defaultKeywords = ['ESG', 'sustainability', 'reporting', 'compliance', 'carbon management'];
   
   // Combine with provided values

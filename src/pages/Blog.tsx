@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
+import { Card, CardContent } from '../components/ui/Card';
 import { 
   Calendar, 
   User, 
   ArrowRight, 
   Search,
-  Filter,
   Clock,
   Tag
 } from 'lucide-react';
@@ -75,7 +74,7 @@ export default function Blog() {
     {
       id: 5,
       title: t('Case Study: How TechCorp Reduced Carbon Emissions by 40%'),
-      excerpt: t('A detailed look at how a Fortune 500 technology company used ESGSoluce to dramatically reduce their carbon footprint and improve ESG ratings.'),
+      excerpt: t('A detailed look at how a Fortune 500 technology company used ImpactSoluce to identify their ESG exposure and improve evidence readiness for regulatory compliance.'),
       author: 'Jennifer Liu',
       date: '2024-03-05',
       readTime: '15 min read',

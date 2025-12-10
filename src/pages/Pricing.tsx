@@ -196,7 +196,7 @@ export default function Pricing() {
                       )}
                     </div>
                     
-                    <Link to={plan.price ? "/assessment" : "/contact"}>
+                    <Link to={plan.price ? "/impact-scan" : "/contact"}>
                       <Button 
                         className={`w-full mb-6 ${plan.popular ? 'bg-primary' : ''}`}
                         variant={plan.popular ? 'primary' : 'outline'}

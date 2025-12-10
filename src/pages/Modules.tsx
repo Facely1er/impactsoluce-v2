@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
@@ -8,9 +8,7 @@ import {
   Package, 
   CheckCircle2, 
   XCircle, 
-  Settings, 
   ArrowRight,
-  AlertCircle,
   Shield,
   TrendingUp
 } from 'lucide-react';
@@ -33,11 +31,7 @@ export default function Modules() {
   const [modules, setModules] = useState<RegulatoryModule[]>([]);
   const [activeModules, setActiveModules] = useState<string[]>([]);
 
-  useEffect(() => {
-    loadModules();
-  }, []);
-
-  const loadModules = () => {
+  const loadModules = useCallback(() => {
     try {
       setIsLoading(true);
       clearError();
@@ -48,11 +42,16 @@ export default function Modules() {
       setModules(allModules);
       setActiveModules(active);
     } catch (err) {
-      handleError(err as Error, 'Failed to load modules');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load modules';
+      handleError(new Error(`Failed to load modules: ${errorMessage}`));
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [clearError, handleError]);
+
+  useEffect(() => {
+    loadModules();
+  }, [loadModules]);
 
   const handleToggleModule = (moduleId: string) => {
     try {
@@ -63,7 +62,8 @@ export default function Modules() {
       }
       loadModules(); // Reload to update state
     } catch (err) {
-      handleError(err as Error, 'Failed to toggle module');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to toggle module';
+      handleError(new Error(`Failed to toggle module: ${errorMessage}`));
     }
   };
 
@@ -79,7 +79,7 @@ export default function Modules() {
     return (
       <Layout>
         <div className="container mx-auto px-4 py-12">
-          <ErrorAlert message={error} onClose={clearError} />
+          <ErrorAlert message={error.message} details={error.details} onClose={clearError} />
         </div>
       </Layout>
     );

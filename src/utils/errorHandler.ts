@@ -8,7 +8,7 @@ export const logError = (error: unknown, context?: string): void => {
   const errorStack = error instanceof Error ? error.stack : undefined;
   
   console.error(
-    `[ESGSoluce Error]${context ? ` [${context}]` : ''}:`,
+    `[ImpactSoluce Error]${context ? ` [${context}]` : ''}:`,
     errorMessage,
     errorStack ? { stack: errorStack } : ''
   );

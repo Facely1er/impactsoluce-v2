@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent } from '../components/ui/Card';
@@ -142,7 +141,7 @@ export default function About() {
                     </h3>
                   </div>
                   <p className="text-gray-600 dark:text-gray-300">
-                    {t('A world where every organization operates sustainably, transparently, and responsibly, creating positive impact for people and planet. ImpactSoluce™ empowers organizations to achieve this vision through comprehensive ESG management and reporting.')}
+                    {t('A world where organizations have clear visibility into their ESG exposure and evidence readiness before regulators, buyers, or financiers ask. ImpactSoluce™ provides decision-grade intelligence that enables organizations to prove readiness, not just talk about ambition.')}
                   </p>
                 </CardContent>
               </Card>

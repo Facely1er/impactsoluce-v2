@@ -578,14 +578,45 @@ export default function Settings() {
                     </p>
                   </div>
                   
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      addToast('info', t('Team management coming soon'));
-                    }}
-                  >
-                    {t('Upgrade Plan')}
-                  </Button>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                          {t('Current Plan')}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {t('Free Plan - Limited to 1 user')}
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          window.location.href = '/pricing';
+                        }}
+                      >
+                        {t('Upgrade')}
+                      </Button>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium text-gray-900 dark:text-white">
+                        {t('Team Members')}
+                      </h4>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        {t('You are the only team member on the Free plan.')}
+                      </div>
+                    </div>
+                    
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        window.location.href = '/pricing';
+                      }}
+                    >
+                      {t('Upgrade to Add Team Members')}
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>

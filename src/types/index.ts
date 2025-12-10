@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 
 export interface NavItem {
   title: string;
@@ -511,7 +510,7 @@ export interface ModuleConfiguration {
   enabled: boolean;
   applicableSectors: string[];
   applicableGeographies: string[];
-  customSettings?: Record<string, any>;
+  customSettings?: Record<string, unknown>;
 }
 
 // EUDR Module Types

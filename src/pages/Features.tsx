@@ -317,7 +317,7 @@ export default function Features() {
                   {t('Get Started')}
                 </Button>
               </Link>
-              <Link to="/assessment?demo=true">
+              <Link to="/impact-scan?demo=true">
                 <Button variant="outline" className="border-white text-white hover:bg-primary-800">
                   {t('Try Demo')}
                 </Button>

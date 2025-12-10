@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
@@ -12,13 +11,13 @@ export default function Terms() {
       id: 'acceptance',
       title: t('Acceptance of Terms'),
       icon: FileCheck,
-      content: t('By accessing and using ESGSoluce services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.')
+      content: t('By accessing and using ImpactSoluce services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.')
     },
     {
       id: 'service-description',
       title: t('Service Description'),
       icon: Shield,
-      content: t('ESGSoluce provides a comprehensive ESG (Environmental, Social, and Governance) platform that helps organizations measure, manage, and improve their sustainability performance. Our services include assessments, reporting tools, analytics, and compliance management features.')
+      content: t('ImpactSoluce provides ESG Risk Intelligence that helps organizations understand their exposure and evidence readiness. Our services include Impact Risk Radar™, Evidence Readiness Workspace, Impact Scan assessments, and Regulatory Intelligence Modules.')
     },
     {
       id: 'user-responsibilities',
@@ -30,13 +29,13 @@ export default function Terms() {
       id: 'data-accuracy',
       title: t('Data Accuracy and Compliance'),
       icon: Scale,
-      content: t('While we provide tools and frameworks to support ESG reporting, users are responsible for the accuracy of their data and compliance with applicable regulations. ESGSoluce does not guarantee compliance with specific regulatory requirements.')
+      content: t('While we provide tools and frameworks to support ESG exposure analysis and evidence readiness, users are responsible for the accuracy of their data and compliance with applicable regulations. ImpactSoluce does not guarantee compliance with specific regulatory requirements.')
     },
     {
       id: 'limitations',
       title: t('Limitations of Liability'),
       icon: AlertTriangle,
-      content: t('ESGSoluce shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses resulting from your use of the service.')
+      content: t('ImpactSoluce shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses resulting from your use of the service.')
     },
     {
       id: 'termination',

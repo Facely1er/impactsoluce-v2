@@ -3,7 +3,6 @@ import Header from './Header';
 import Footer from './Footer';
 import { cn } from '../../utils/cn';
 import SkipLink from '../ui/SkipLink';
-import { useTranslation } from 'react-i18next';
 import MetaTags from '../seo/MetaTags';
 
 interface LayoutProps {
@@ -13,7 +12,6 @@ interface LayoutProps {
   description?: string;
   keywords?: string[];
   image?: string;
-  noIndex?: boolean;
 }
 
 export default function Layout({ 
@@ -22,10 +20,8 @@ export default function Layout({
   title,
   description,
   keywords,
-  image,
-  noIndex = false
+  image
 }: LayoutProps) {
-  const { t } = useTranslation();
   
   return (
     <>

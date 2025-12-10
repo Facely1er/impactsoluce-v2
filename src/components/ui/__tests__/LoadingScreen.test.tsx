@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import LoadingScreen from '../LoadingScreen';
@@ -8,7 +7,7 @@ describe('LoadingScreen Component', () => {
     render(<LoadingScreen />);
     
     // Check for the app name
-    expect(screen.getByText('ESGSoluce')).toBeInTheDocument();
+    expect(screen.getByText('ImpactSoluce')).toBeInTheDocument();
     
     // Check for the loading text
     expect(screen.getByText('Loading application...')).toBeInTheDocument();

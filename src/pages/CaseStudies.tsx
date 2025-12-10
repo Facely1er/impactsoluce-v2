@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { 
   TrendingUp, 
-  Users, 
   Building, 
   Globe,
   ArrowRight,
   Download,
-  ExternalLink,
   Target,
   Award,
   Leaf
@@ -36,7 +34,7 @@ export default function CaseStudies() {
       industry: 'technology',
       size: t('5,000+ employees'),
       challenge: t('High energy consumption from data centers and lack of comprehensive ESG reporting framework.'),
-      solution: t('Implemented ESGSoluce platform for carbon tracking, technology dependency analysis, and automated reporting.'),
+      solution: t('Implemented ImpactSoluce platform for ESG exposure analysis, risk radar configuration, and evidence readiness tracking.'),
       results: [
         { metric: t('Carbon Reduction'), value: '40%', icon: Leaf },
         { metric: t('ESG Score Improvement'), value: '+35 points', icon: TrendingUp },
@@ -45,7 +43,7 @@ export default function CaseStudies() {
       ],
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
       testimonial: {
-        quote: t('ESGSoluce transformed our approach to sustainability. The platform\'s insights helped us identify key areas for improvement and track our progress effectively.'),
+        quote: t('ImpactSoluce showed us exactly where regulatory pressure would hit. The Risk Radar identified our exposure signals before our buyers asked, giving us time to prepare evidence.'),
         author: 'Sarah Johnson',
         role: t('Chief Sustainability Officer')
       },
@@ -89,7 +87,7 @@ export default function CaseStudies() {
       ],
       image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800',
       testimonial: {
-        quote: t('ESGSoluce helped us transform ESG from a compliance requirement into a strategic advantage that attracts conscious investors.'),
+        quote: t('ImpactSoluce helped us understand our ESG exposure and evidence readiness. We could prove our compliance posture to investors and regulators with confidence.'),
         author: 'Emma Rodriguez',
         role: t('Head of ESG Strategy')
       },
@@ -113,7 +111,7 @@ export default function CaseStudies() {
               {t('Success Stories')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              {t('See how organizations across industries are transforming their ESG performance with ESGSoluce.')}
+              {t('See how organizations across industries are identifying their ESG exposure and proving evidence readiness with ImpactSoluce.')}
             </p>
           </div>
         </div>

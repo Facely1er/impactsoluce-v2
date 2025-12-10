@@ -9,8 +9,10 @@
  */
 
 // Supabase configuration (optional - app works without it)
+// Using shared database with AgroSoluce
 export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 export const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+export const SUPABASE_SCHEMA = import.meta.env.VITE_SUPABASE_SCHEMA || 'impactsoluce';
 
 // Application configuration
 export const APP_NAME = import.meta.env.VITE_APP_NAME || 'ImpactSoluce™ - ESG Risk Intelligence by ERMITS';

@@ -1,7 +1,6 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card';
-import { Eye, MousePointer, Type, Contrast, RefreshCw } from 'lucide-react';
+import { Eye, RefreshCw } from 'lucide-react';
 import Button from '../ui/Button';
 import { useAccessibility } from './AccessibilityProvider';
 
@@ -34,6 +33,7 @@ const AccessibilitySettings: React.FC = () => {
               className="sr-only peer"
               checked={settings.reduceMotion}
               onChange={(e) => updateSetting('reduceMotion', e.target.checked)}
+              aria-label={t('Reduce Motion')}
             />
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
           </label>
@@ -55,6 +55,7 @@ const AccessibilitySettings: React.FC = () => {
               className="sr-only peer"
               checked={settings.highContrast}
               onChange={(e) => updateSetting('highContrast', e.target.checked)}
+              aria-label={t('High Contrast')}
             />
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
           </label>
@@ -77,7 +78,7 @@ const AccessibilitySettings: React.FC = () => {
                   name="fontSize"
                   value={option.value}
                   checked={settings.fontSize === option.value}
-                  onChange={(e) => updateSetting('fontSize', e.target.value as any)}
+                  onChange={(e) => updateSetting('fontSize', e.target.value as 'normal' | 'large' | 'larger')}
                   className="h-4 w-4 text-primary focus:ring-primary border-gray-300"
                 />
                 <span className="text-sm text-gray-700 dark:text-gray-300">
@@ -104,6 +105,7 @@ const AccessibilitySettings: React.FC = () => {
               className="sr-only peer"
               checked={settings.focusVisible}
               onChange={(e) => updateSetting('focusVisible', e.target.checked)}
+              aria-label={t('Enhanced Focus Indicators')}
             />
             <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
           </label>
