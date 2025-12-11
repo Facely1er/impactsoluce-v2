@@ -252,6 +252,17 @@ export default function Features() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {additionalFeatures.map((feature, index) => {
               const IconComponent = feature.icon;
+              // Map features to actual pages/functionality
+              const featureLinks: Record<string, string> = {
+                [t('Real-time Dashboards')]: '/dashboard',
+                [t('Compliance Management')]: '/standards-mapping',
+                [t('Stakeholder Collaboration')]: '/evidence-workspace',
+                [t('Automated Reporting')]: '/reports',
+                [t('Data Security')]: '/security',
+                [t('API Integration')]: '/documentation',
+              };
+              const link = featureLinks[feature.title];
+              
               return (
                 <Card key={index} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
@@ -263,9 +274,17 @@ export default function Features() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
                       {feature.description}
                     </p>
+                    {link && (
+                      <Link to={link}>
+                        <Button variant="outline" size="sm" className="w-full">
+                          {t('Learn More')}
+                          <ArrowRight className="ml-2 h-3 w-3" />
+                        </Button>
+                      </Link>
+                    )}
                   </CardContent>
                 </Card>
               );
@@ -279,10 +298,10 @@ export default function Features() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              {t('Seamless Integrations')}
+              {t('Data Import & Export')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              {t('Connect with your existing tools and systems for a unified workflow.')}
+              {t('Import data from common formats and export results for use in your existing tools and systems.')}
             </p>
           </div>
           
@@ -295,8 +314,18 @@ export default function Features() {
                 <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {integration.name}
                 </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  {t('Export format')}
+                </p>
               </div>
             ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link to="/documentation">
+              <Button variant="outline">
+                {t('View Import/Export Documentation')}
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
