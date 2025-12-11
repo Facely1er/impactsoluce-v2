@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import Button from '../components/ui/Button';
-import { ArrowRight, BarChart3, CheckCircle2, LineChart, Shield, Sparkles, FileText, Radar, FolderOpen } from 'lucide-react';
+import { ArrowRight, CheckCircle2, LineChart, Shield, Sparkles, Radar, FolderOpen } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/Card';
 import { Link } from 'react-router-dom';
 
@@ -73,20 +73,21 @@ export default function Home() {
                   {t('ImpactSoluce transforms environmental, social, and governance obligations into decision-grade intelligence. Not reports. Not promises. Evidence-based exposure signals.')}
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                  <Link to="/risk-radar">
+                  <Link to="/risk-radar" className="w-full sm:w-auto">
                     <Button
                       size="lg"
-                      className="w-full sm:w-auto bg-primary hover:bg-primary-600"
+                      className="w-full sm:w-auto"
                       aria-label={t('See Your Exposure')}
                     >
                       {t('See Your Exposure')}
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
-                  <Link to="/impact-scan">
+                  <Link to="/impact-scan" className="w-full sm:w-auto">
                     <Button
                       variant="outline"
                       size="lg"
-                      className="w-full sm:w-auto border-primary text-primary"
+                      className="w-full sm:w-auto"
                       aria-label={t('Check Your Readiness')}
                     >
                       {t('Check Your Readiness')}
@@ -153,7 +154,7 @@ export default function Home() {
                 {!feature.available && (
                   <div className="absolute top-3 right-3 z-10">
                     <span className="bg-primary text-white text-xs px-2 py-1 rounded-full font-medium">
-                      {feature.comingSoon}
+                      {t('Coming Soon')}
                     </span>
                   </div>
                 )}
@@ -241,7 +242,7 @@ export default function Home() {
               </ul>
               <div className="mt-8">
                 <Link to="/risk-radar">
-                  <Button className="bg-primary hover:bg-primary-600 inline-flex items-center">
+                  <Button className="inline-flex items-center">
                     {t('Start Risk Analysis')}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
@@ -273,21 +274,21 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-primary-900 dark:bg-gray-900 py-16">
+      <section className="bg-primary-800 dark:bg-primary-900 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl bg-primary px-6 py-16 sm:p-16">
+          <div className="rounded-2xl bg-primary-700 dark:bg-primary-800 px-6 py-16 sm:p-16">
             <div className="mx-auto max-w-xl text-center">
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 {t('Ready to know your exposure?')}
               </h2>
-              <p className="mt-4 text-lg text-primary-100">
+              <p className="mt-4 text-lg text-primary-100 dark:text-primary-200">
                 {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
               </p>
-              <div className="mt-8 flex justify-center gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                 <Link to="/risk-radar">
                   <Button
                     size="lg"
-                    className="bg-white text-primary hover:bg-gray-100"
+                    className="bg-white text-primary hover:bg-gray-100 w-full sm:w-auto"
                   >
                     {t('See Your Exposure')}
                   </Button>
@@ -296,7 +297,7 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="border-white text-white hover:bg-primary-800"
+                    className="border-2 border-white text-white hover:bg-white/10 w-full sm:w-auto"
                   >
                     {t('Start Impact Scan')}
                   </Button>

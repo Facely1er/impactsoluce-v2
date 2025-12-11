@@ -1,7 +1,7 @@
 # ImpactSoluce Design System
 
 **Version:** 1.0.0  
-**Last Updated:** December 2024
+**Last Updated:** December 2025
 
 ## Overview
 
@@ -629,7 +629,7 @@ Design for mobile first, then enhance for larger screens.
 
 ## Version History
 
-- **v1.0.0** (December 2024): Initial design system documentation
+- **v1.0.0** (December 2025): Initial design system documentation
 
 ---
 

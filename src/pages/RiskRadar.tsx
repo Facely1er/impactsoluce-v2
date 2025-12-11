@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
@@ -14,7 +14,7 @@ import {
   RefreshCw,
   Info
 } from 'lucide-react';
-import { RiskRadarOutput, ExposureSignal, RiskRadarConfig } from '../types';
+import { RiskRadarOutput } from '../types';
 import { Link } from 'react-router-dom';
 import { useErrorHandler } from '../hooks/useErrorHandler';
 import { parseRiskRadarConfig } from '../utils/riskRadarValidation';
@@ -313,17 +313,17 @@ export default function RiskRadar() {
               {t('Last updated: {{date}}', { date: new Date(riskRadarData.generatedAt).toLocaleDateString() })}
             </p>
           </div>
-          <div className="flex gap-2 mt-4 md:mt-0">
-            <Button variant="outline" onClick={handleRefresh} disabled={isLoading}>
+          <div className="flex flex-wrap gap-2 mt-4 md:mt-0">
+            <Button variant="outline" onClick={handleRefresh} disabled={isLoading} size="sm">
               <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
               {t('Refresh')}
             </Button>
-            <Button variant="outline" onClick={handleExport} disabled={!riskRadarData}>
+            <Button variant="outline" onClick={handleExport} disabled={!riskRadarData} size="sm">
               <Download className="h-4 w-4 mr-2" />
               {t('Export')}
             </Button>
             <Link to="/risk-radar/configure">
-              <Button variant="outline">
+              <Button variant="outline" size="sm">
                 <Settings className="h-4 w-4 mr-2" />
                 {t('Configure')}
               </Button>
@@ -340,7 +340,7 @@ export default function RiskRadar() {
         )}
 
         {/* Overall Exposure */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {Object.entries(riskRadarData.overallExposure).map(([key, exposure]) => (
             <Card key={key}>
               <CardHeader>
@@ -358,9 +358,10 @@ export default function RiskRadar() {
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  {/* Dynamic width requires inline style - acceptable for progress bars */}
                   <div
-                    className={`h-2 rounded-full ${getExposureColor(exposure.level)}`}
-                    style={{ width: `${exposure.score}%` }}
+                    className={`h-2 rounded-full progress-bar ${getExposureColor(exposure.level)}`}
+                    style={{ '--progress-width': `${exposure.score}%` } as CSSProperties & { '--progress-width': string }}
                   ></div>
                 </div>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
@@ -436,7 +437,7 @@ export default function RiskRadar() {
         </Card>
 
         {/* Regulatory Pressure */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <Card>
             <CardHeader>
               <CardTitle>{t('Regulatory Pressure by Region')}</CardTitle>
@@ -454,14 +455,15 @@ export default function RiskRadar() {
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                      {/* Dynamic width requires inline style - acceptable for progress bars */}
                       <div
-                        className={`h-2 rounded-full ${
+                        className={`h-2 rounded-full progress-bar ${
                           pressure.intensity >= 75 ? 'bg-red-500' :
                           pressure.intensity >= 50 ? 'bg-orange-500' :
                           pressure.intensity >= 25 ? 'bg-yellow-500' :
                           'bg-green-500'
                         }`}
-                        style={{ width: `${pressure.intensity}%` }}
+                        style={{ '--progress-width': `${pressure.intensity}%` } as CSSProperties & { '--progress-width': string }}
                       ></div>
                     </div>
                   </div>

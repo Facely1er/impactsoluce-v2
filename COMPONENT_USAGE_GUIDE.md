@@ -1,7 +1,7 @@
 # ImpactSoluce Component Usage Guide
 
 **Version:** 1.0.0  
-**Last Updated:** December 2024
+**Last Updated:** December 2025
 
 This guide provides detailed usage examples and best practices for all UI components in ImpactSoluce.
 

@@ -302,23 +302,23 @@ export default function Features() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary">
-        <div className="container mx-auto px-4">
+      <section className="py-16 bg-primary-800 dark:bg-primary-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4 sm:text-4xl">
               {t('Ready to Know Your Exposure?')}
             </h2>
-            <p className="text-xl text-primary-100 mb-8">
+            <p className="text-lg text-primary-100 dark:text-primary-200 mb-8">
               {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/impact-scan">
-                <Button className="bg-white text-primary hover:bg-gray-100">
+              <Link to="/risk-radar">
+                <Button size="lg" className="bg-white text-primary hover:bg-gray-100 w-full sm:w-auto">
                   {t('Get Started')}
                 </Button>
               </Link>
               <Link to="/impact-scan?demo=true">
-                <Button variant="outline" className="border-white text-white hover:bg-primary-800">
+                <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white/10 w-full sm:w-auto">
                   {t('Try Demo')}
                 </Button>
               </Link>

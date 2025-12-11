@@ -1,7 +1,7 @@
 # ImpactSoluce UI/UX Guidelines
 
 **Version:** 1.0.0  
-**Last Updated:** December 2024
+**Last Updated:** December 2025
 
 ## Overview
 
@@ -641,7 +641,7 @@ Before implementing a new feature or page, ensure:
 
 ## Version History
 
-- **v1.0.0** (December 2024): Initial UI/UX guidelines documentation
+- **v1.0.0** (December 2025): Initial UI/UX guidelines documentation
 
 ---
 

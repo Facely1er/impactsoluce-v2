@@ -242,10 +242,8 @@ export default function Header() {
                 </div>
               </div>
             ) : (
-              <Link to="/signup">
+              <Link to="/risk-radar" className="hidden md:block">
                 <Button
-                  variant="primary"
-                  className="hidden md:inline-flex bg-primary hover:bg-primary/90"
                   size="sm"
                 >
                   {t('Get Started')}
@@ -464,9 +462,8 @@ export default function Header() {
               {t('Sign Out')}
             </Button>
           ) : (
-            <Link to="/signup" className="block w-full">
+            <Link to="/risk-radar" className="block w-full">
               <Button
-                variant="primary"
                 className="mt-4 w-full"
                 onClick={() => setIsMenuOpen(false)}
               >

@@ -1,7 +1,7 @@
 # ImpactSoluce User Onboarding Guide
 
 **Version:** 1.0.0  
-**Last Updated:** December 2024
+**Last Updated:** December 2025
 
 This guide provides strategies and patterns for onboarding new users to ImpactSoluce, ensuring they understand the platform and can quickly achieve value.
 
@@ -561,7 +561,7 @@ export function OnboardingWizard({ steps, onComplete, onSkip }: OnboardingWizard
 
 ## Version History
 
-- **v1.0.0** (December 2024): Initial onboarding guide
+- **v1.0.0** (December 2025): Initial onboarding guide
 
 ---
 
