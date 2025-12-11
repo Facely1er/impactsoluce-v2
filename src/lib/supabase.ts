@@ -18,8 +18,10 @@ if (!HAS_DATABASE) {
 
 // Use fallback values if Supabase is not configured (for standalone mode)
 // Using shared database with AgroSoluce: https://nuwfdvwqiynzhbbsqagw.supabase.co
+// NOTE: Never hardcode API keys or secrets. Always use environment variables.
+// If SUPABASE_ANON_KEY is not set, the app will run in standalone mode without database.
 const supabaseUrl = SUPABASE_URL || 'https://nuwfdvwqiynzhbbsqagw.supabase.co';
-const supabaseKey = SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51d2ZkdndxaXluemhiYnNxYWd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE2NDQxMjQsImV4cCI6MjA3NzIyMDEyNH0.9X_HxnSYDFqzxvzEUMx1dGg4GPHyw13oQfxpCXprsX8';
+const supabaseKey = SUPABASE_ANON_KEY || '';
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseKey, {
   auth: {
