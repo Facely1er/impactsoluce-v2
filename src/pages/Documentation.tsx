@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { 
@@ -12,7 +13,6 @@ import {
   ExternalLink,
   Download,
   FileText,
-  Video,
   Zap
 } from 'lucide-react';
 import Button from '../components/ui/Button';
@@ -128,8 +128,6 @@ export default function Documentation() {
     switch (type) {
       case 'code':
         return <Code className="h-4 w-4" />;
-      case 'video':
-        return <Video className="h-4 w-4" />;
       default:
         return <FileText className="h-4 w-4" />;
     }
@@ -224,7 +222,11 @@ export default function Documentation() {
                 <CardContent>
                   <div className="space-y-3">
                     {section.articles.map((article, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                      <Link 
+                        key={index} 
+                        to={`/documentation/article/${section.id}/${index}`}
+                        className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                      >
                         <div className="flex items-center gap-3">
                           {getTypeIcon(article.type)}
                           <span className="text-gray-900 dark:text-white font-medium">
@@ -232,13 +234,15 @@ export default function Documentation() {
                           </span>
                         </div>
                         <ChevronRight className="h-4 w-4 text-gray-400" />
-                      </div>
+                      </Link>
                     ))}
                   </div>
                   <div className="mt-6 flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      {t('View Section')}
-                    </Button>
+                    <Link to={`/documentation/section/${section.id}`} className="flex-1">
+                      <Button variant="outline" size="sm" className="w-full">
+                        {t('View Section')}
+                      </Button>
+                    </Link>
                     <Button variant="ghost" size="sm" icon={<Download className="h-4 w-4" />}>
                       {t('Download PDF')}
                     </Button>
@@ -281,25 +285,19 @@ export default function Documentation() {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
                 {
                   title: t('API Quick Start'),
                   description: t('Get started with our REST API in 5 minutes'),
                   icon: Code,
-                  href: '#'
-                },
-                {
-                  title: t('Video Tutorials'),
-                  description: t('Watch our comprehensive video guide series'),
-                  icon: Video,
-                  href: '#'
+                  href: '/documentation'
                 },
                 {
                   title: t('Best Practices'),
                   description: t('Learn ESG best practices from industry experts'),
                   icon: Book,
-                  href: '#'
+                  href: '/documentation'
                 }
               ].map((resource, index) => {
                 const IconComponent = resource.icon;
@@ -317,9 +315,11 @@ export default function Documentation() {
                       <p className="text-gray-600 dark:text-gray-300 mb-4">
                         {resource.description}
                       </p>
-                      <Button variant="outline" size="sm" icon={<ExternalLink className="h-4 w-4" />}>
-                        {t('View Resource')}
-                      </Button>
+                      <Link to={resource.href}>
+                        <Button variant="outline" size="sm" icon={<ExternalLink className="h-4 w-4" />}>
+                          {t('View Resource')}
+                        </Button>
+                      </Link>
                     </CardContent>
                   </Card>
                 );
@@ -340,12 +340,11 @@ export default function Documentation() {
               {t('Can\'t find what you\'re looking for? Our support team is here to help.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-primary">
-                {t('Contact Support')}
-              </Button>
-              <Button variant="outline">
-                {t('Request Documentation')}
-              </Button>
+              <Link to="/contact">
+                <Button className="bg-primary">
+                  {t('Contact Support')}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

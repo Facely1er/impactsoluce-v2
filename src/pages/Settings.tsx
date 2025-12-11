@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { 
@@ -385,10 +386,6 @@ export default function Settings() {
                   </h3>
                   
                   <LanguageSwitcher variant="buttons" className="flex gap-2" />
-                  
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
-                    {t('Additional languages will be available soon.')}
-                  </p>
                 </div>
               </CardContent>
             </Card>
@@ -588,15 +585,14 @@ export default function Settings() {
                           {t('Free Plan - Limited to 1 user')}
                         </p>
                       </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          window.location.href = '/pricing';
-                        }}
-                      >
-                        {t('Upgrade')}
-                      </Button>
+                      <Link to="/pricing">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                        >
+                          {t('Upgrade')}
+                        </Button>
+                      </Link>
                     </div>
                     
                     <div className="space-y-2">
@@ -608,14 +604,13 @@ export default function Settings() {
                       </div>
                     </div>
                     
-                    <Button
-                      variant="outline"
-                      onClick={() => {
-                        window.location.href = '/pricing';
-                      }}
-                    >
-                      {t('Upgrade to Add Team Members')}
-                    </Button>
+                    <Link to="/pricing">
+                      <Button
+                        variant="outline"
+                      >
+                        {t('Upgrade to Add Team Members')}
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </CardContent>

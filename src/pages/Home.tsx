@@ -150,14 +150,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, idx) => (
-              <Card key={idx} className={`overflow-hidden border-0 relative ${!feature.available ? 'opacity-90' : ''}`}>
-                {!feature.available && (
-                  <div className="absolute top-3 right-3 z-10">
-                    <span className="bg-primary text-white text-xs px-2 py-1 rounded-full font-medium">
-                      {t('Coming Soon')}
-                    </span>
-                  </div>
-                )}
+              <Card key={idx} className="overflow-hidden border-0">
                 <CardContent className="p-6">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                     {feature.icon}
@@ -168,7 +161,7 @@ export default function Home() {
                   <p className="text-gray-600 dark:text-gray-300">
                     {feature.description}
                   </p>
-                  {feature.available && feature.link && (
+                  {feature.link && (
                     <div className="mt-4">
                       <Link to={feature.link}>
                         <Button variant="outline" size="sm" className="w-full">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent } from '../components/ui/Card';
 import { 
@@ -192,9 +193,11 @@ export default function Blog() {
                   <p className="text-gray-600 dark:text-gray-300 mb-6">
                     {featuredPost.excerpt}
                   </p>
-                  <Button className="bg-primary" icon={<ArrowRight className="h-4 w-4" />}>
-                    {t('Read Full Article')}
-                  </Button>
+                  <Link to={`/blog/article/${featuredPost.id}`}>
+                    <Button className="bg-primary" icon={<ArrowRight className="h-4 w-4" />}>
+                      {t('Read Full Article')}
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </Card>
@@ -252,9 +255,11 @@ export default function Blog() {
                       <span className="text-sm text-gray-500 dark:text-gray-400">
                         {new Date(post.date).toLocaleDateString()}
                       </span>
-                      <Button variant="ghost" size="sm" icon={<ArrowRight className="h-4 w-4" />}>
-                        {t('Read More')}
-                      </Button>
+                      <Link to={`/blog/article/${post.id}`}>
+                        <Button variant="ghost" size="sm" icon={<ArrowRight className="h-4 w-4" />}>
+                          {t('Read More')}
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>

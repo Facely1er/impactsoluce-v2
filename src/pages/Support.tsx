@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent } from '../components/ui/Card';
 import { 
-  MessageCircle, 
   Book, 
-  Video,
   Search,
   ChevronDown,
   ChevronRight,
@@ -26,21 +25,7 @@ export default function Support() {
       description: t('Browse our comprehensive documentation and guides'),
       icon: Book,
       action: t('Browse Articles'),
-      href: '#knowledge-base'
-    },
-    {
-      title: t('Video Tutorials'),
-      description: t('Watch step-by-step video guides for common tasks'),
-      icon: Video,
-      action: t('Watch Videos'),
-      href: '#tutorials'
-    },
-    {
-      title: t('Live Chat'),
-      description: t('Get instant help from our support team'),
-      icon: MessageCircle,
-      action: t('Start Chat'),
-      href: '#chat'
+      href: '/documentation'
     },
     {
       title: t('Contact Support'),
@@ -83,25 +68,22 @@ export default function Support() {
       title: t('Getting Started Guide'),
       description: t('Complete guide to setting up your ESG assessment'),
       type: 'PDF',
-      size: '2.5 MB'
+      size: '2.5 MB',
+      href: '/documentation'
     },
     {
       title: t('API Documentation'),
       description: t('Technical documentation for developers'),
       type: 'Web',
-      size: 'Online'
+      size: 'Online',
+      href: '/documentation'
     },
     {
       title: t('Best Practices Handbook'),
       description: t('ESG best practices and industry insights'),
       type: 'PDF',
-      size: '4.1 MB'
-    },
-    {
-      title: t('Video Tutorial Series'),
-      description: t('Complete video course on using ImpactSoluce'),
-      type: 'Video',
-      size: '2.5 hours'
+      size: '4.1 MB',
+      href: '/resources'
     }
   ];
 
@@ -158,9 +140,11 @@ export default function Support() {
                     <p className="text-gray-600 dark:text-gray-300 mb-4">
                       {option.description}
                     </p>
-                    <Button variant="outline" className="w-full">
-                      {option.action}
-                    </Button>
+                    <Link to={option.href}>
+                      <Button variant="outline" className="w-full">
+                        {option.action}
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               );
@@ -231,7 +215,7 @@ export default function Support() {
                 {t('Helpful Resources')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300">
-                {t('Download guides, watch tutorials, and access documentation.')}
+                {t('Download guides and access documentation.')}
               </p>
             </div>
             
@@ -253,9 +237,11 @@ export default function Support() {
                           <span>{resource.size}</span>
                         </div>
                       </div>
-                      <Button variant="ghost" size="sm" icon={<Download className="h-4 w-4" />}>
-                        {t('Download')}
-                      </Button>
+                      <Link to={resource.href || '/resources'}>
+                        <Button variant="ghost" size="sm" icon={<Download className="h-4 w-4" />}>
+                          {t('View')}
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
@@ -316,25 +302,27 @@ export default function Support() {
               <div className="text-center">
                 <div className="flex justify-center mb-4">
                   <div className="p-3 bg-white/10 rounded-full">
-                    <MessageCircle className="h-6 w-6 text-white" />
+                    <Book className="h-6 w-6 text-white" />
                   </div>
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">
-                  {t('Live Chat')}
+                  {t('Documentation')}
                 </h3>
                 <p className="text-primary-100 mb-4">
-                  {t('Available in platform')}
+                  {t('Comprehensive guides and resources')}
                 </p>
                 <p className="text-sm text-primary-200">
-                  {t('Instant responses')}
+                  {t('Self-service support')}
                 </p>
               </div>
             </div>
             
             <div className="text-center mt-12">
-              <Button className="bg-white text-primary hover:bg-gray-100">
-                {t('Contact Support Team')}
-              </Button>
+              <Link to="/contact">
+                <Button className="bg-white text-primary hover:bg-gray-100">
+                  {t('Contact Support Team')}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

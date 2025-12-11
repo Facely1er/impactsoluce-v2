@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { 
@@ -457,17 +458,15 @@ export default function Profile() {
                 </div>
                 
                 <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full"
-                    onClick={() => {
-                      // Navigate to account settings
-                      addToast('info', t('Account settings functionality coming soon'));
-                    }}
-                  >
-                    {t('Manage Subscription')}
-                  </Button>
+                  <Link to="/pricing">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full"
+                    >
+                      {t('Manage Subscription')}
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>

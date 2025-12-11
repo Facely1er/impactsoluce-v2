@@ -47,6 +47,9 @@ const SupplyChainModule = lazy(() => import('../pages/modules/SupplyChainModule'
 const ClimateDisclosureModule = lazy(() => import('../pages/modules/ClimateDisclosureModule'));
 const SupplyChainMapping = lazy(() => import('../pages/SupplyChainMapping'));
 const Alerts = lazy(() => import('../pages/Alerts'));
+const BlogArticle = lazy(() => import('../pages/blog/BlogArticle'));
+const CaseStudyDetail = lazy(() => import('../pages/case-studies/CaseStudyDetail'));
+const DocumentationArticle = lazy(() => import('../pages/documentation/DocumentationArticle'));
 
 // Wrap lazy-loaded components with Suspense
 const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -68,10 +71,14 @@ export default function AppRoutes() {
       <Route path="/features" element={<SuspenseWrapper><Features /></SuspenseWrapper>} />
       <Route path="/pricing" element={<SuspenseWrapper><Pricing /></SuspenseWrapper>} />
       <Route path="/case-studies" element={<SuspenseWrapper><CaseStudies /></SuspenseWrapper>} />
+      <Route path="/case-studies/:id" element={<SuspenseWrapper><CaseStudyDetail /></SuspenseWrapper>} />
       <Route path="/contact" element={<SuspenseWrapper><Contact /></SuspenseWrapper>} />
       <Route path="/blog" element={<SuspenseWrapper><Blog /></SuspenseWrapper>} />
+      <Route path="/blog/article/:id" element={<SuspenseWrapper><BlogArticle /></SuspenseWrapper>} />
       <Route path="/support" element={<SuspenseWrapper><Support /></SuspenseWrapper>} />
       <Route path="/documentation" element={<SuspenseWrapper><Documentation /></SuspenseWrapper>} />
+      <Route path="/documentation/article/:sectionId/:articleId" element={<SuspenseWrapper><DocumentationArticle /></SuspenseWrapper>} />
+      <Route path="/documentation/section/:sectionId" element={<SuspenseWrapper><Documentation /></SuspenseWrapper>} />
       <Route path="/esg-glossary" element={<SuspenseWrapper><EsgGlossary /></SuspenseWrapper>} />
       <Route path="/cookie-policy" element={<SuspenseWrapper><CookiePolicy /></SuspenseWrapper>} />
       <Route path="/security" element={<SuspenseWrapper><Security /></SuspenseWrapper>} />

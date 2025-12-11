@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { 
@@ -196,9 +197,16 @@ export default function CaseStudies() {
                     </footer>
                   </blockquote>
                   
-                  <Button className="bg-primary" icon={<Download className="h-4 w-4" />}>
-                    {t('Download Full Case Study')}
-                  </Button>
+                  <Link to={`/case-studies/${featuredStudy.id}`}>
+                    <Button className="bg-primary" icon={<ArrowRight className="h-4 w-4" />}>
+                      {t('Read Full Case Study')}
+                    </Button>
+                  </Link>
+                  <Link to={`/case-studies/${featuredStudy.id}?download=true`} className="ml-3">
+                    <Button variant="outline" icon={<Download className="h-4 w-4" />}>
+                      {t('Download PDF')}
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </Card>
@@ -258,12 +266,16 @@ export default function CaseStudies() {
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <Button variant="ghost" size="sm" icon={<ArrowRight className="h-4 w-4" />}>
-                      {t('Read More')}
-                    </Button>
-                    <Button variant="outline" size="sm" icon={<Download className="h-4 w-4" />}>
-                      {t('Download')}
-                    </Button>
+                    <Link to={`/case-studies/${study.id}`}>
+                      <Button variant="ghost" size="sm" icon={<ArrowRight className="h-4 w-4" />}>
+                        {t('Read More')}
+                      </Button>
+                    </Link>
+                    <Link to={`/case-studies/${study.id}?download=true`}>
+                      <Button variant="outline" size="sm" icon={<Download className="h-4 w-4" />}>
+                        {t('Download')}
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -318,12 +330,16 @@ export default function CaseStudies() {
               {t('Join these industry leaders and start your ESG transformation journey today.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white text-primary hover:bg-gray-100">
-                {t('Start Your Assessment')}
-              </Button>
-              <Button variant="outline" className="border-white text-white hover:bg-primary-800">
-                {t('Schedule Consultation')}
-              </Button>
+              <Link to="/impact-scan">
+                <Button className="bg-white text-primary hover:bg-gray-100">
+                  {t('Start Your Assessment')}
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button variant="outline" className="border-white text-white hover:bg-primary-800">
+                  {t('Schedule Consultation')}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
