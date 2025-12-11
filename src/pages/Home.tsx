@@ -51,43 +51,48 @@ export default function Home() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-white dark:bg-gray-900">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-gradient-to-br from-white via-primary/5 to-secondary/5 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
           <div className="py-12 md:py-20 lg:py-24">
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-              <div className="flex flex-col justify-center">
-                <div className="mb-4">
-                  <p className="text-sm font-semibold text-primary uppercase tracking-wide">
+              <div className="flex flex-col justify-center animate-fade-in">
+                <div className="mb-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                  <p className="text-sm font-semibold text-primary uppercase tracking-wide inline-flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
                     {t('ESG Risk Intelligence')}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     {t('by ERMITS')}
                   </p>
                 </div>
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl">
+                <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl animate-slide-up" style={{ animationDelay: '0.2s' }}>
                   <span className="block">{t('Know where your impact')}</span>
-                  <span className="block text-primary">{t('exposure is')}</span>
+                  <span className="block text-primary bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent animate-fade-in" style={{ animationDelay: '0.4s' }}>{t('exposure is')}</span>
                   <span className="block">{t('— before they ask')}</span>
                 </h1>
-                <p className="mt-6 text-lg text-gray-600 dark:text-gray-300">
+                <p className="mt-6 text-lg text-gray-600 dark:text-gray-300 animate-slide-up" style={{ animationDelay: '0.3s' }}>
                   {t('ImpactSoluce transforms environmental, social, and governance obligations into decision-grade intelligence. Not reports. Not promises. Evidence-based exposure signals.')}
                 </p>
-                <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                  <Link to="/risk-radar" className="w-full sm:w-auto">
+                <div className="mt-8 flex flex-col sm:flex-row gap-4 animate-slide-up" style={{ animationDelay: '0.5s' }}>
+                  <Link to="/risk-radar" className="w-full sm:w-auto group">
                     <Button
                       size="lg"
-                      className="w-full sm:w-auto"
+                      className="w-full sm:w-auto hover-lift hover-glow transition-all duration-300 group-hover:scale-105"
                       aria-label={t('See Your Exposure')}
                     >
                       {t('See Your Exposure')}
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </Link>
-                  <Link to="/impact-scan" className="w-full sm:w-auto">
+                  <Link to="/impact-scan" className="w-full sm:w-auto group">
                     <Button
                       variant="outline"
                       size="lg"
-                      className="w-full sm:w-auto"
+                      className="w-full sm:w-auto hover-lift transition-all duration-300 group-hover:border-primary group-hover:text-primary"
                       aria-label={t('Check Your Readiness')}
                     >
                       {t('Check Your Readiness')}
@@ -108,26 +113,27 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div className="relative mx-auto max-w-[75%] lg:max-w-none">
-                <div className="relative rounded-2xl bg-gray-50 p-4 shadow-xl dark:bg-gray-800 lg:p-6">
-                  <div className="aspect-[3/2] overflow-hidden rounded-lg bg-gray-200 dark:bg-gray-700">
+              <div className="relative mx-auto max-w-[75%] lg:max-w-none animate-slide-in-right" style={{ animationDelay: '0.3s' }}>
+                <div className="relative rounded-2xl bg-gray-50 p-4 shadow-xl dark:bg-gray-800 lg:p-6 hover-lift transition-all duration-500 group">
+                  <div className="aspect-[3/2] overflow-hidden rounded-lg bg-gray-200 dark:bg-gray-700 relative">
                     <img
                       src="https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1600"
                       alt={t('ESG Dashboard preview')}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                 </div>
-                <div className="absolute -bottom-6 -left-6 rounded-2xl bg-secondary/10 p-4 shadow-lg dark:bg-secondary/20 lg:-bottom-10 lg:-left-10 lg:p-6">
+                <div className="absolute -bottom-6 -left-6 rounded-2xl bg-secondary/10 backdrop-blur-sm p-4 shadow-lg dark:bg-secondary/20 lg:-bottom-10 lg:-left-10 lg:p-6 animate-scale-in border border-secondary/20" style={{ animationDelay: '0.6s' }}>
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
-                      <LineChart className="h-5 w-5 text-secondary" />
+                      <LineChart className="h-5 w-5 text-secondary animate-pulse-slow" />
                       <span className="text-sm font-medium text-gray-900 dark:text-white">
                         {t('Carbon reduction: 27% YoY')}
                       </span>
                     </div>
-                    <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-                      <div className="h-2 rounded-full bg-secondary w-[73%]"></div>
+                    <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                      <div className="h-2 rounded-full bg-gradient-to-r from-secondary to-primary w-[73%] transition-all duration-1000 ease-out animate-slide-up"></div>
                     </div>
                   </div>
                 </div>
@@ -150,12 +156,18 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, idx) => (
-              <Card key={idx} className="overflow-hidden border-0">
+              <Card 
+                key={idx} 
+                className="overflow-hidden border-0 hover-lift group cursor-pointer animate-fade-in"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
                 <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                    {feature.icon}
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110">
+                    <div className="group-hover:rotate-6 transition-transform duration-300">
+                      {feature.icon}
+                    </div>
                   </div>
-                  <h3 className="mb-2 text-xl font-medium text-gray-900 dark:text-white">
+                  <h3 className="mb-2 text-xl font-medium text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300">
                     {feature.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300">
@@ -163,10 +175,10 @@ export default function Home() {
                   </p>
                   {feature.link && (
                     <div className="mt-4">
-                      <Link to={feature.link}>
-                        <Button variant="outline" size="sm" className="w-full">
+                      <Link to={feature.link} className="group/link">
+                        <Button variant="outline" size="sm" className="w-full group-hover:border-primary group-hover:text-primary transition-all duration-300">
                           {t('Learn More')}
-                          <ArrowRight className="ml-2 h-3 w-3" />
+                          <ArrowRight className="ml-2 h-3 w-3 group-hover/link:translate-x-1 transition-transform" />
                         </Button>
                       </Link>
                     </div>
@@ -198,10 +210,16 @@ export default function Home() {
               { title: t('Advisory & Assurance Firms'), icon: '📋', description: t('Support clients with evidence-based exposure analysis and readiness assessment') },
               { title: t('Compliance Officers'), icon: '🛡️', description: t('Identify regulatory pressure points and evidence gaps before audits') }
             ].map((audience, idx) => (
-              <Card key={idx} className="border-0 shadow-md hover:shadow-lg transition-shadow">
+              <Card 
+                key={idx} 
+                className="border-0 shadow-md hover-lift group animate-fade-in cursor-pointer"
+                style={{ animationDelay: `${idx * 0.1}s` }}
+              >
                 <CardContent className="p-6">
-                  <div className="text-4xl mb-4">{audience.icon}</div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  <div className="text-4xl mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                    {audience.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors duration-300">
                     {audience.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 text-sm">
@@ -218,39 +236,43 @@ export default function Home() {
       <section className="py-16 dark:bg-gray-900">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            <div className="animate-fade-in">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl animate-slide-up">
                 {t('Why ImpactSoluce?')}
               </h2>
-              <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+              <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 animate-slide-up" style={{ animationDelay: '0.1s' }}>
                 {t('Get decision-grade intelligence on your ESG exposure. Know what exists, what\'s missing, and where pressure will hit next.')}
               </p>
               <ul className="mt-8 space-y-4">
                 {benefits.map((benefit, idx) => (
-                  <li key={idx} className="flex">
-                    <CheckCircle2 className="h-6 w-6 flex-shrink-0 text-primary" />
-                    <span className="ml-3 text-gray-600 dark:text-gray-300">{benefit}</span>
+                  <li 
+                    key={idx} 
+                    className="flex animate-slide-up group"
+                    style={{ animationDelay: `${0.2 + idx * 0.1}s` }}
+                  >
+                    <CheckCircle2 className="h-6 w-6 flex-shrink-0 text-primary group-hover:scale-110 transition-transform duration-300" />
+                    <span className="ml-3 text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">{benefit}</span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-8">
-                <Link to="/risk-radar">
-                  <Button className="inline-flex items-center">
+              <div className="mt-8 animate-slide-up" style={{ animationDelay: '0.8s' }}>
+                <Link to="/risk-radar" className="group">
+                  <Button className="inline-flex items-center hover-lift">
                     {t('Start Risk Analysis')}
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
               </div>
             </div>
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden">
+            <div className="relative animate-slide-in-right">
+              <div className="relative rounded-2xl overflow-hidden group hover-lift transition-all duration-500">
                 <img
                   src="https://images.pexels.com/photos/2990647/pexels-photo-2990647.jpeg?auto=compress&cs=tinysrgb&w=1600"
                   alt={t('Sustainable business')}
-                  className="w-full h-[500px] object-cover"
+                  className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-black/60 transition-all duration-300"></div>
+                <div className="absolute bottom-0 left-0 p-8 animate-fade-in" style={{ animationDelay: '0.5s' }}>
                   <div className="max-w-md">
                     <p className="text-2xl font-medium text-white mb-2">
                       {t('ImpactSoluce™ showed us exactly where regulatory pressure would hit — before our buyers asked.')}
@@ -267,30 +289,32 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-primary-800 dark:bg-primary-900 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl bg-primary-700 dark:bg-primary-800 px-6 py-16 sm:p-16">
+      <section className="bg-gradient-to-br from-primary-800 via-primary-700 to-secondary-700 dark:from-primary-900 dark:via-primary-800 dark:to-secondary-900 py-16 relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+          <div className="rounded-2xl bg-primary-700/90 backdrop-blur-sm dark:bg-primary-800/90 px-6 py-16 sm:p-16 border border-primary-600/20 shadow-2xl animate-scale-in">
             <div className="mx-auto max-w-xl text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl animate-slide-up">
                 {t('Ready to know your exposure?')}
               </h2>
-              <p className="mt-4 text-lg text-primary-100 dark:text-primary-200">
+              <p className="mt-4 text-lg text-primary-100 dark:text-primary-200 animate-slide-up" style={{ animationDelay: '0.2s' }}>
                 {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
               </p>
-              <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                <Link to="/risk-radar">
+              <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+                <Link to="/risk-radar" className="group">
                   <Button
                     size="lg"
-                    className="bg-white text-primary hover:bg-gray-100 w-full sm:w-auto"
+                    className="bg-white text-primary hover:bg-gray-100 w-full sm:w-auto hover-lift hover-glow shadow-lg"
                   >
                     {t('See Your Exposure')}
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-                <Link to="/impact-scan">
+                <Link to="/impact-scan" className="group">
                   <Button
                     variant="outline"
                     size="lg"
-                    className="border-2 border-white text-white hover:bg-white/10 w-full sm:w-auto"
+                    className="border-2 border-white text-white hover:bg-white/10 w-full sm:w-auto hover-lift"
                   >
                     {t('Start Impact Scan')}
                   </Button>

@@ -33,10 +33,11 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div
       className={cn(
-        'bg-white dark:bg-gray-800 rounded-lg',
+        'bg-white dark:bg-gray-800 rounded-lg transition-all duration-300',
         border && 'border border-gray-200 dark:border-gray-700',
         shadowClasses[shadow],
         paddingClasses[padding],
+        'hover:shadow-lg hover:shadow-primary/5',
         className
       )}
     >
