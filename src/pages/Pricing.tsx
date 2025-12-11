@@ -264,9 +264,11 @@ export default function Pricing() {
                     <div className="text-lg font-medium text-primary mb-4">
                       {addon.price}
                     </div>
-                    <Button variant="outline" className="w-full">
-                      {t('Learn More')}
-                    </Button>
+                    <Link to="/contact">
+                      <Button variant="outline" className="w-full">
+                        {t('Contact Sales')}
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               ))}

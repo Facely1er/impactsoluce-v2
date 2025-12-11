@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent } from '../components/ui/Card';
 import { 
@@ -80,12 +81,16 @@ export default function About() {
               {t('ImpactSoluce™ transforms environmental, social, and governance obligations into decision-grade intelligence. Know where your impact exposure is — before regulators, buyers, or financiers ask. Not reports. Not promises. Evidence-based exposure signals.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-primary">
-                {t('Join Our Mission')}
-              </Button>
-              <Button variant="outline">
-                {t('View Our Impact')}
-              </Button>
+              <Link to="/contact">
+                <Button className="bg-primary">
+                  {t('Contact Us')}
+                </Button>
+              </Link>
+              <Link to="/case-studies">
+                <Button variant="outline">
+                  {t('View Case Studies')}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -247,12 +252,16 @@ export default function About() {
               {t('Join organizations using ImpactSoluce™ to identify where regulatory pressure will hit and prove evidence readiness — before regulators, buyers, or financiers ask.')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-primary">
-                {t('See Your Exposure')}
-              </Button>
-              <Button variant="outline">
-                {t('Schedule a Demo')}
-              </Button>
+              <Link to="/risk-radar">
+                <Button className="bg-primary">
+                  {t('See Your Exposure')}
+                </Button>
+              </Link>
+              <Link to="/impact-scan?demo=true">
+                <Button variant="outline">
+                  {t('Try Demo')}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

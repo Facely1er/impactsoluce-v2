@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { 
@@ -274,9 +275,11 @@ export default function Contact() {
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     {t('Book a personalized demo or consultation with our ESG experts.')}
                   </p>
-                  <Button variant="outline" className="w-full">
-                    {t('Schedule a Meeting')}
-                  </Button>
+                  <Link to="/contact">
+                    <Button variant="outline" className="w-full">
+                      {t('Contact Us')}
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             </div>

@@ -94,21 +94,27 @@ export default function Footer() {
             </p>
             <div className="mt-6 flex space-x-4">
               <a
-                href="#"
+                href="https://twitter.com/ermits"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
                 aria-label={t('Follow us on Twitter')}
               >
                 <Twitter size={20} />
               </a>
               <a
-                href="#"
+                href="https://github.com/ermits"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
                 aria-label={t('Follow us on GitHub')}
               >
                 <Github size={20} />
               </a>
               <a
-                href="#"
+                href="https://linkedin.com/company/ermits"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
                 aria-label={t('Follow us on LinkedIn')}
               >
