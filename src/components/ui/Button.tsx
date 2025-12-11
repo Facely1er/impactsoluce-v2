@@ -102,7 +102,7 @@ const Button: React.FC<ButtonProps> = ({
         </>
       ) : (
         <>
-          {icon && <span className="flex-shrink-0\" aria-hidden="true">{icon}</span>}
+          {icon && <span className="flex-shrink-0" aria-hidden="true">{icon}</span>}
           {children}
         </>
       )}
