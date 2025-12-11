@@ -3,15 +3,12 @@ import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { validateConfig } from './lib/config';
-import { applySecurityHeaders } from './utils/securityHeaders';
-import { initCsp } from './utils/contentSecurityPolicy';
+import { initMonitoring } from './lib/monitoring';
 import { initPerformanceMonitoring } from './utils/performance';
 import { setupGlobalErrorReporting } from './utils/errorReporting';
-import { registerServiceWorker } from './utils/serviceWorker';
-import { logBuildInfo, checkAppVersion } from './utils/buildInfo';
-import { initCriticalPathOptimizations } from './utils/criticalPathOptimization';
-import { displayProductionChecks } from './utils/productionChecks';
-import { initAccessibility } from './utils/accessibility';
+import { trackPageView } from './utils/analytics';
+import { logger } from './utils/logger';
+import { performHealthCheck } from './utils/healthCheck';
 
 // Register Chart.js components
 // This ensures they're available throughout the app
@@ -43,33 +40,32 @@ ChartJS.register(
 );
 
 // Validate environment configuration
-// Initialize critical path optimizations early
-initCriticalPathOptimizations();
-
-// Initialize accessibility features
-initAccessibility();
-
 const { valid, errors } = validateConfig();
 
-// Apply security headers in production
-if (import.meta.env.PROD) {
-  applySecurityHeaders();
-  initCsp();
-  initPerformanceMonitoring();
-  setupGlobalErrorReporting();
-  registerServiceWorker();
-}
+// Initialize monitoring and analytics
+initMonitoring();
+initPerformanceMonitoring();
+setupGlobalErrorReporting();
 
-// Log build info and check for updates
-logBuildInfo();
-if (checkAppVersion()) {
-  console.log('📦 App version updated. Cache may have been cleared.');
-}
+// Track initial page load
+trackPageView(window.location.pathname);
 
-// Run production readiness checks in development
-if (import.meta.env.DEV) {
-  displayProductionChecks();
-}
+// Perform health check (async, don't block)
+performHealthCheck().then(health => {
+  if (health.status !== 'healthy') {
+    logger.warn('Health check indicates degraded status', { health });
+  } else {
+    logger.info('Application health check passed', { health });
+  }
+}).catch(error => {
+  logger.error('Health check failed', {}, error);
+});
+
+// Log application startup
+logger.info('Application starting', {
+  environment: import.meta.env.MODE,
+  version: import.meta.env.VITE_APP_VERSION || '1.0.0'
+});
 
 if (!valid) {
   console.error('Application configuration error:', errors);

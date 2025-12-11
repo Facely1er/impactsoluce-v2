@@ -14,14 +14,19 @@ import LoadingScreen from './components/ui/LoadingScreen';
 import OfflineIndicator from './components/ui/OfflineIndicator';
 import AdminPanel from './components/admin/AdminPanel';
 import { usePageTracking } from './hooks/useAnalytics';
-import { initMonitoring } from './lib/monitoring';
-
-// Initialize monitoring on app load
-initMonitoring();
+import { trackPageView } from './utils/analytics';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // Component to track page views
 function PageTracker() {
+  const location = useLocation();
   usePageTracking();
+  
+  useEffect(() => {
+    trackPageView(location.pathname, document.title);
+  }, [location.pathname]);
+  
   return null;
 }
 
