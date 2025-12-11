@@ -1,9 +1,11 @@
-import { useState, useEffect, CSSProperties } from 'react';
+import { useState, useEffect, CSSProperties, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import ErrorAlert from '../components/ui/ErrorAlert';
+import RadarChart from '../components/dashboard/RadarChart';
+import GeographicMap from '../components/dashboard/GeographicMap';
 import { 
   Radar, 
   AlertTriangle, 
@@ -339,6 +341,43 @@ export default function RiskRadar() {
           />
         )}
 
+        {/* Radar Chart Visualization */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>{t('Exposure Radar Chart')}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <RadarChart
+              data={useMemo(() => ({
+                labels: [
+                  t('Environmental'),
+                  t('Social'),
+                  t('Governance'),
+                  t('Regulatory')
+                ],
+                datasets: [
+                  {
+                    label: t('Exposure Score'),
+                    data: [
+                      riskRadarData.overallExposure.environmental.score,
+                      riskRadarData.overallExposure.social.score,
+                      riskRadarData.overallExposure.governance.score,
+                      riskRadarData.overallExposure.regulatory.score
+                    ],
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgb(59, 130, 246)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(59, 130, 246)'
+                  }
+                ]
+              }), [riskRadarData, t])}
+            />
+          </CardContent>
+        </Card>
+
         {/* Overall Exposure */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {Object.entries(riskRadarData.overallExposure).map(([key, exposure]) => (
@@ -433,6 +472,24 @@ export default function RiskRadar() {
                 </div>
               ))}
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Geographic Risk View */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>{t('Geographic Risk Distribution')}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <GeographicMap
+              locations={riskRadarData.riskHotspots.map((hotspot, index) => ({
+                id: `hotspot-${index}`,
+                name: hotspot.geography,
+                country: hotspot.geography,
+                riskScore: hotspot.riskLevel === 'high' ? 75 : hotspot.riskLevel === 'medium' ? 50 : 25,
+                tier: 1
+              }))}
+            />
           </CardContent>
         </Card>
 

@@ -14,7 +14,7 @@ import {
 import Button from '../components/ui/Button';
 import { frameworkMappings } from '../utils/data';
 import { useAssessmentDemo } from '../hooks/useAssessmentDemo';
-import { downloadJSON, downloadMarkdown, formatAssessmentForExport } from '../utils/export';
+import { downloadJSON, downloadMarkdown, downloadPDF, formatAssessmentForExport } from '../utils/export';
 import { Link } from 'react-router-dom';
 import styles from './AssessmentResults.module.css';
 
@@ -22,7 +22,7 @@ export default function AssessmentResults() {
   const { t } = useTranslation();
   const { isDemoMode } = useAssessmentDemo();
 
-  const handleDownloadReport = (format: 'json' | 'markdown' = 'json') => {
+  const handleDownloadReport = (format: 'json' | 'markdown' | 'pdf' = 'json') => {
     const exportData = formatAssessmentForExport({
       results: results,
       generatedAt: new Date().toISOString(),
@@ -42,8 +42,14 @@ export default function AssessmentResults() {
     
     if (format === 'json') {
       downloadJSON(exportData, `${filename}.json`);
-    } else {
+    } else if (format === 'markdown') {
       downloadMarkdown(exportData, `${filename}.md`);
+    } else if (format === 'pdf') {
+      downloadPDF(
+        `Impact Assessment Results - ${new Date().toLocaleDateString()}`,
+        exportData,
+        `${filename}.pdf`
+      );
     }
   };
 
@@ -203,6 +209,12 @@ export default function AssessmentResults() {
                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700"
                   >
                     {t('Export as Markdown')}
+                  </button>
+                  <button
+                    onClick={() => handleDownloadReport('pdf')}
+                    className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    {t('Export as PDF')}
                   </button>
                 </div>
               </div>
